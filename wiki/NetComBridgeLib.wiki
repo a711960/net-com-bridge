@@ -15,7 +15,7 @@ Add your content here.  Format your content with:
 
  * Use Selenium WebDriver to search in Firefox
 
-{{{
+ {{{
     Dim lBridge As New NetComBridgeLib.NetComBridge
     Dim webdriver As NetComBridgeLib.NetComBridge
     lBridge.LoadLibrary "C:\net35\WebDriver.dll"
@@ -29,4 +29,4 @@ Add your content here.  Format your content with:
         ).Method("Click").Invoke()
     webdriver.Method("Quit").Invoke()
 
-}}}
+ }}}

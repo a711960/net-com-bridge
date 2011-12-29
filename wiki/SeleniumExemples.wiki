@@ -1,4 +1,4 @@
- * Use Selenium WebDriver to search in Firefox
+ * Use Selenium WebDriver library to drive Firefox
 
  {{{
     Dim lBridge As New NetComBridgeLib.NetComBridge
@@ -13,5 +13,25 @@
             lBridge.Type("OpenQA.Selenium.By").Method("Name").Invoke1("btnG") _
         ).Method("Click").Invoke()
     webdriver.Method("Quit").Invoke()
+
+ }}}
+
+ * Use Selenium WebDriverBackedSelenium library to drive Firefox
+
+ {{{
+    Dim lBridge As New NetComBridgeLib.NetComBridge
+    Dim selenium As NetComBridgeLib.Instance
+    lBridge.LoadLibrary "C:\net35\WebDriver.dll"
+    lBridge.LoadLibrary "C:\net35\Selenium.WebDriverBackedSelenium.dll"
+    lBridge.LoadLibrary "C:\net35\ThoughtWorks.Selenium.Core.dll"
+    Set selenium = lBridge.Type("Selenium.WebDriverBackedSelenium").Instantiate2( _
+            lBridge.Type("OpenQA.Selenium.Firefox.FirefoxDriver").Instantiate(), _
+            "http://www.google.com" _
+        ).CastAs("Selenium.ISelenium")
+    selenium.Method("Start").Invoke
+    selenium.Method("Open").Invoke1 "/"
+    selenium.Method("Type").Invoke2 "id=lst-ib", "England"
+    selenium.Method("Click").Invoke1 "name=btnG"
+    selenium.Method("Close").Invoke
 
  }}}

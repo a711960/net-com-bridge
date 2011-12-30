@@ -1,4 +1,5 @@
 == Use Selenium WebDriver library to drive Firefox ==
+The following code launches Firefox and search for the word "England"
 
  {{{
 Sub Test_WebDriver()
@@ -18,7 +19,7 @@ End Sub
  }}}
 
 == Use Selenium WebDriverBackedSelenium library to drive Firefox ==
-
+The following code launches Firefox and search for the word "England"
  {{{
 Sub Test_WebDriverBackedSelenium()
     Dim lBridge As New NetComBridgeLib.NetComBridge

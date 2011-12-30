@@ -1,6 +1,7 @@
  * Use Selenium WebDriver library to drive Firefox
 
  {{{
+Sub Test_WebDriver()
     Dim lBridge As New NetComBridgeLib.NetComBridge
     Dim webdriver As NetComBridgeLib.NetComBridge
     lBridge.LoadLibrary "C:\net35\WebDriver.dll"
@@ -13,12 +14,13 @@
             lBridge.Type("OpenQA.Selenium.By").Method("Name").Invoke1("btnG") _
         ).Method("Click").Invoke()
     webdriver.Method("Quit").Invoke()
-
+End Sub
  }}}
 
  * Use Selenium WebDriverBackedSelenium library to drive Firefox
 
  {{{
+Sub Test_WebDriverBackedSelenium()
     Dim lBridge As New NetComBridgeLib.NetComBridge
     Dim selenium As NetComBridgeLib.Instance
     lBridge.LoadLibrary "C:\net35\WebDriver.dll"
@@ -33,5 +35,5 @@
     selenium.Method("Type").Invoke2 "id=lst-ib", "England"
     selenium.Method("Click").Invoke1 "name=btnG"
     selenium.Method("Close").Invoke
-
+End Sub
  }}}

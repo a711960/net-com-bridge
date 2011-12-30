@@ -1,4 +1,4 @@
- * Use Selenium WebDriver library to drive Firefox
+== Use Selenium WebDriver library to drive Firefox ==
 
  {{{
 Sub Test_WebDriver()
@@ -17,7 +17,7 @@ Sub Test_WebDriver()
 End Sub
  }}}
 
- * Use Selenium WebDriverBackedSelenium library to drive Firefox
+== Use Selenium WebDriverBackedSelenium library to drive Firefox ==
 
  {{{
 Sub Test_WebDriverBackedSelenium()

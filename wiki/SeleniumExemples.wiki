@@ -10,7 +10,7 @@ Sub Test_WebDriver()
     Set webdriver = lBridge.Type("OpenQA.Selenium.Firefox.FirefoxDriver").Instantiate0().CastAs("OpenQA.Selenium.IWebDriver")
     webdriver.Method("Navigate").Invoke0().Method("GoToUrl").Invoke1 "http://www.google.com"
     webdriver.Method("FindElement").Invoke1( _
-            lBridge.Type("OpenQA.Selenium.By").Method("Id").Invoke1("lst-ib") _
+            lBridge.Type("OpenQA.Selenium.By").Method("Name").Invoke1("q") _
         ).Method("SendKeys").Invoke1 ("England")
     webdriver.Method("FindElement").Invoke1( _
             lBridge.Type("OpenQA.Selenium.By").Method("Name").Invoke1("btnG") _
@@ -34,7 +34,7 @@ Sub Test_WebDriverBackedSelenium()
         ).CastAs("Selenium.ISelenium")
     selenium.Method("Start").Invoke0
     selenium.Method("Open").Invoke1 "/"
-    selenium.Method("Type").Invoke2 "id=lst-ib", "England"
+    selenium.Method("Type").Invoke2 "name=q", "England"
     selenium.Method("Click").Invoke1 "name=btnG"
     selenium.Method("Close").Invoke0
 End Sub

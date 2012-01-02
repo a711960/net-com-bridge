@@ -8,7 +8,7 @@ Sub Test_WebDriver()
     Dim webdriver As NetComBridgeLib.Instance
     lBridge.LoadLibrary "C:\net35\WebDriver.dll"
     Set webdriver = lBridge.Type("OpenQA.Selenium.Firefox.FirefoxDriver").Instantiate0().CastAs("OpenQA.Selenium.IWebDriver")
-    webdriver.Method("Navigate").Invoke0().Method("GoToUrl").Invoke1 "http://www.google.com"
+    webdriver.Method("Get").Invoke1 "http://www.google.com"
     webdriver.Method("FindElement").Invoke1( _
             lBridge.Type("OpenQA.Selenium.By").Method("Name").Invoke1("q") _
         ).Method("SendKeys").Invoke1 ("England")

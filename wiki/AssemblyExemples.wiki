@@ -1,13 +1,8 @@
-#summary One-sentence summary of this page.
+=== Show the current date in a message box ===
 
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+ {{{
+ Sub Test_DateTime()
+     Dim lBridge As New NetComBridgeLib.NetComBridge
+     MsgBox lBridge.Type("System.DateTime").Property("Now").Get().Method("ToString").Invoke1("yyyy MM dd")
+ End Sub
+ }}}

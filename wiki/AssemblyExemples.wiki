@@ -7,7 +7,7 @@
  End Sub
  }}}
 
-=== Show a .NET form object ===
+=== Use a .NET form object ===
  {{{
 Sub Test
     Dim lBridge As New NetComBridgeLib.NetComBridge

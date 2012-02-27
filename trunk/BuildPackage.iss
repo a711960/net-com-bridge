@@ -47,9 +47,12 @@ Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\.NETFramework\Policy\AppPatch\v2.0.50727.00000\excel.exe\{{2CCAA9FE-6884-4AF2-99DD-5217B94115DF}}"; ValueType: string; ValueName: "Target Version"; ValueData: "v2.0.50727"
 
 [Run]
-Filename:"{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\{reg:HKCR\CLSID\{{61b3e12b-3586-3a58-a497-7ed7c4c794b9%7D\InprocServer32\2.0.0.0,RuntimeVersion}\RegAsm.exe"; Parameters: NetComBridgeLib.dll /unregister /tlb:NetComBridgeLib.tlb; WorkingDir: {app}; StatusMsg: "Unregistering NetComBridge dll ..."; Flags: runhidden;
-Filename:"{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\{reg:HKCR\CLSID\{{61b3e12b-3586-3a58-a497-7ed7c4c794b9%7D\InprocServer32\2.0.0.0,RuntimeVersion}\RegAsm.exe"; Parameters: NetComBridgeLib.dll /tlb:NetComBridgeLib.tlb  /codebase;WorkingDir: {app}; StatusMsg: "Registering NetComBridge dll ..."; Flags: runhidden;
+Filename:"{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\{reg:HKCR\CLSID\{{61b3e12b-3586-3a58-a497-7ed7c4c794b9%7D\InprocServer32\2.0.0.0,RuntimeVersion}\RegAsm.exe"; Parameters: NetComBridgeLib.dll /unregister /tlb:NetComBridgeLib.tlb; WorkingDir: {app}; StatusMsg: "Registering NetComBridge dll"; Flags: runhidden;
+Filename:"{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\{reg:HKCR\CLSID\{{61b3e12b-3586-3a58-a497-7ed7c4c794b9%7D\InprocServer32\2.0.0.0,RuntimeVersion}\RegAsm.exe"; Parameters: NetComBridgeLib.dll /tlb:NetComBridgeLib.tlb  /codebase;WorkingDir: {app}; StatusMsg: "Registering NetComBridge dll"; Flags: runhidden;
+
+[UninstallDelete]
+Type: filesandordirs; Name: "{app}"
 
 [UninstallRun]
-Filename:"{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\{reg:HKCR\CLSID\{{61b3e12b-3586-3a58-a497-7ed7c4c794b9%7D\InprocServer32\2.0.0.0,RuntimeVersion}\RegAsm.exe"; Parameters: NetComBridgeLib.dll /unregister /tlb:NetComBridgeLib.tlb; WorkingDir: {app}; StatusMsg: "Unregistering NetComBridge dll ..."; Flags: runhidden;
+Filename:"{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\{reg:HKCR\CLSID\{{61b3e12b-3586-3a58-a497-7ed7c4c794b9%7D\InprocServer32\2.0.0.0,RuntimeVersion}\RegAsm.exe"; Parameters: NetComBridgeLib.dll /unregister /tlb:NetComBridgeLib.tlb; WorkingDir: {app}; StatusMsg: "Unregistering NetComBridge dll"; Flags: runhidden;
 

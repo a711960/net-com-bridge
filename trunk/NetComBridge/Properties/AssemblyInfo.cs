@@ -1,11 +1,11 @@
 ﻿// General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: System.Reflection.AssemblyTitle("ClassLibrary1")]
+[assembly: System.Reflection.AssemblyTitle("NetComBridge")]
 [assembly: System.Reflection.AssemblyDescription("")]
 [assembly: System.Reflection.AssemblyConfiguration("")]
 [assembly: System.Reflection.AssemblyCompany("Florent Breheret")]
-[assembly: System.Reflection.AssemblyProduct("ClassLibrary1")]
+[assembly: System.Reflection.AssemblyProduct("NetComBridge")]
 [assembly: System.Reflection.AssemblyCopyright("Copyright © Florent Breheret 2012")]
 [assembly: System.Reflection.AssemblyTrademark("")]
 [assembly: System.Reflection.AssemblyCulture("")]

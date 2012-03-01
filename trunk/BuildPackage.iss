@@ -5,6 +5,7 @@
 #define MyAppVersion GetFileVersion(".\NetComBridge\bin\Release\NetComBridgeLib.dll")
 #define MyAppPublisher "Florent BREHERET"
 #define MyAppURL "http://code.google.com/p/net-com-bridge/"
+#define MyVersion() ParseVersion(".\NetComBridge\bin\Release\NetComBridgeLib.dll", Local[0], Local[1], Local[2], Local[3]), Str(Local[0]) + "." + Str(Local[1]) + "." + Str(Local[2]);
 
 [Setup]
 AppId={{9E85CFED-63CA-4F45-AA81-2B49D69C7642}}
@@ -23,7 +24,7 @@ DisableProgramGroupPage=yes
 LicenseFile=.\NetComBridge\bin\Release\License.txt
 ;InfoBeforeFile=.\ClassLibrary1\bin\Release\Info.txt
 OutputDir="."
-OutputBaseFilename=NetComBridgeSetup-{#MyAppVersion}
+OutputBaseFilename=NetComBridgeSetup-{#MyVersion()}
 Compression=lzma
 SolidCompression=yes
 

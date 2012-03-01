@@ -1,0 +1,46 @@
+
+Description
+------------------------------------------------------------------------------------------
+Runtime error is raised because the .NET based COM assembly can't find the .NET framework
+
+
+Links
+------------------------------------------------------------------------------------------
+http://stackoverflow.com/questions/790580/how-to-select-net-framework-version-running-from-excel
+
+http://www.microsoft.com/download/en/details.aspx?displaylang=en&id=10624
+
+
+
+Solution 1 - Create a configuration file
+------------------------------------------------------------------------------------------
+Create a file containing the following
+
+<?xml version="1.0"?>
+<configuration>
+  <startup>
+   <supportedRuntime version="v2.0.50727"/>
+  </startup>
+</configuration>
+
+Call it "Excel.Exe.Config" and place it in the same directory as "EXCEL.EXE"
+
+
+
+Solution 2 - Create Registry file
+------------------------------------------------------------------------------------------
+Paste the following lines in a .reg file and execture it :
+
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\Policy\AppPatch\v2.0.50727.00000\excel.exe\{2CCAA9FE-6884-4AF2-99DD-5217B94115DF}]
+"Target Version"="v2.0.50727"
+
+
+Solution 2 - InnoSetup
+------------------------------------------------------------------------------------------
+Insert the following lines in innosetup scipt :
+
+[Registry]
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\.NETFramework\Policy\AppPatch\v2.0.50727.00000\excel.exe\{{2CCAA9FE-6884-4AF2-99DD-5217B94115DF}}"; ValueType: string; ValueName: "Target Version"; ValueData: "v2.0.50727"
+

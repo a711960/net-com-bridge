@@ -1,0 +1,2 @@
+Add event registering
+Stop execution when ESC key is pressed

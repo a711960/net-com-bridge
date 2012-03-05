@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace NetComBridgeLib
 {
+    /// <summary>
+    /// Class reffering to the bridge
+    /// </summary>
     [Guid("d43f6126-5995-4e81-aec9-4b58e66551d9")]
     [ClassInterface(ClassInterfaceType.None)]
     public class NetComBridge : NetComBridgeLib.INetComBridge

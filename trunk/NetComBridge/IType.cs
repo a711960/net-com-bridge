@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace NetComBridgeLib
 {
+    /// <summary>Interface of the Type class</summary>
     [Guid("d45c8a22-df5c-4152-8169-8eb960027624"),InterfaceType(ComInterfaceType.InterfaceIsDual)]
 	public interface IType
     {

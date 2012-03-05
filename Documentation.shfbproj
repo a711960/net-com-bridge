@@ -16,27 +16,26 @@
     <Name>Documentation</Name>
     <!-- SHFB properties -->
     <OutputPath>.\</OutputPath>
-    <HtmlHelpName>NetComBridgeAPI</HtmlHelpName>
+    <HtmlHelpName>NetComBridgeApi</HtmlHelpName>
     <Language>en-US</Language>
     <DocumentationSources>
-      <DocumentationSource sourceFile="NetComBridge\bin\Release\NetComBridgeLib.dll" xmlns="" />
-    </DocumentationSources>
-    <VisibleItems>ExplicitInterfaceImplementations, InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
+      <DocumentationSource sourceFile="NetComBridge\bin\Release\NetComBridge.xml" />
+<DocumentationSource sourceFile="NetComBridge\bin\Release\NetComBridgeLib.dll" /></DocumentationSources>
+    <VisibleItems>None</VisibleItems>
     <ApiFilter>
-      <Filter entryType="Namespace" fullName="NetComBridgeLib" isExposed="True" xmlns="">
-  <Filter entryType="Class" fullName="NetComBridgeLib.Assembly" filterName="Assembly" isExposed="False" />
-  <Filter entryType="Class" fullName="NetComBridgeLib.Instance" filterName="Instance" isExposed="False" />
-  <Filter entryType="Class" fullName="NetComBridgeLib.Method" filterName="Method" isExposed="False" />
-  <Filter entryType="Class" fullName="NetComBridgeLib.NetComBridge" filterName="NetComBridge" isExposed="False" />
-  <Filter entryType="Class" fullName="NetComBridgeLib.Property" filterName="Property" isExposed="False" />
-  <Filter entryType="Class" fullName="NetComBridgeLib.Type" filterName="Type" isExposed="False" />
+      <Filter entryType="Namespace" fullName="NetComBridgeLib" isExposed="False">
+  <Filter entryType="Class" fullName="NetComBridgeLib.Assembly" filterName="Assembly" isExposed="True" />
+  <Filter entryType="Class" fullName="NetComBridgeLib.Instance" filterName="Instance" isExposed="True" />
+  <Filter entryType="Class" fullName="NetComBridgeLib.Method" filterName="Method" isExposed="True" />
+  <Filter entryType="Class" fullName="NetComBridgeLib.NetComBridge" filterName="NetComBridge" isExposed="True" />
+  <Filter entryType="Class" fullName="NetComBridgeLib.Property" filterName="Property" isExposed="True" />
+  <Filter entryType="Class" fullName="NetComBridgeLib.Type" filterName="Type" isExposed="True" />
 </Filter>
-<Filter entryType="Namespace" fullName="System" isExposed="True" xmlns="">
-  <Filter entryType="Class" fullName="System.Object" filterName="Object" isExposed="False" />
-</Filter></ApiFilter>
+    </ApiFilter>
     <FrameworkVersion>.NET 3.5</FrameworkVersion>
     <KeepLogFile>False</KeepLogFile>
-    <HelpTitle>NetComBridge API Documentation</HelpTitle>
+    <HelpTitle>NetComBridge Api Documentation</HelpTitle>
+    <SyntaxFilters>VisualBasic</SyntaxFilters>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in
        order for Visual Studio to perform the build.  The others are optional

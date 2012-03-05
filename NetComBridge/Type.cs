@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace NetComBridgeLib
 {
+    /// <summary>
+    /// Class reffering to types
+    /// </summary>
     [Guid("320814c2-a6cf-4d86-9a7e-ac7f9b68711c")]
     [ClassInterface(ClassInterfaceType.None)]
     public class Type : IType

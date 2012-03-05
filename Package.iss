@@ -35,12 +35,12 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Source: ".\NetComBridge\bin\Release\NetComBridgeLib.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\NetComBridge\bin\Release\License.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\NetComBridge\bin\Release\Readme.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\NetComBridgeAPI.chm"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\NetComBridgeApi.chm"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\QuickTest.vbs"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\Readme"; Filename: "{app}\Readme.txt"; WorkingDir: "{app}";
-Name: "{group}\NetComBridge API"; Filename: "{app}\NetComBridgeAPI.chm"; WorkingDir: "{app}";
+Name: "{group}\NetComBridge API"; Filename: "{app}\NetComBridgeApi.chm"; WorkingDir: "{app}";
 Name: "{group}\QuickTest"; Filename: "{app}\QuickTest.vbs"; WorkingDir: "{app}";
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 

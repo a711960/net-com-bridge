@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace NetComBridgeLib
 {
+    /// <summary>
+    /// Class reffering to methods
+    /// </summary>
     [Guid("68db4aaa-ff84-46f9-84f2-b4dc21a00a44")]
     [ClassInterface(ClassInterfaceType.None)]
     public class Method : IMethod

@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace NetComBridgeLib
 {
+    /// <summary>  Class reffering to an assembly </summary>
     [Guid("c8916909-418b-4616-900f-e76e6f7369ac")]
     [ClassInterface(ClassInterfaceType.None)]
     public class Assembly : NetComBridgeLib.IAssembly
@@ -15,10 +16,16 @@ namespace NetComBridgeLib
             this.lAssembly = pAssembly;
         }
 
+
+        /// <summary>Returns the assembly's location</summary>
+        /// <returns>path of this assembly</returns>
         public System.String Location{
             get { return this.lAssembly.Location; }
         }
 
+        /// <summary>Returns the type object</summary>
+        /// <param name="message">Type name</param>
+        /// <returns>Type object</returns>
         public Type Type(string pFullTypeName){
             System.Type lType;
             lType = this.lBridge.GetLoadedTypeFromString(pFullTypeName);
@@ -29,6 +36,8 @@ namespace NetComBridgeLib
             }
         }
 
+        /// <summary>Returns the assembly's constructors</summary>
+        /// <returns>Returns a string array</returns>
         public System.String[] GetConstrutorsList(){
             int i=0;
             string[] lRet = new string[200];
@@ -51,6 +60,8 @@ namespace NetComBridgeLib
             return lRet;
         }
 
+        /// <summary>Returns the assembly's static methods</summary>
+        /// <returns>Returns a string array</returns>
         public System.String[] GetStaticMethodsList(){
             int i=0;
             string[] lRet = new string[200];

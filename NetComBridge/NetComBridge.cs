@@ -36,7 +36,7 @@ namespace NetComBridgeLib
             if (lType!=null){
                 return new Type(this , lType);
             }else{
-                throw new System.Exception("Type <" + pFullTypeName + "> not found! ");
+                throw new ApplicationException("Type <" + pFullTypeName + "> not found! ");
             }
         }
 
@@ -45,7 +45,7 @@ namespace NetComBridgeLib
             if (this.cAssemblies.TryGetValue(pAssemblyName, out lAssembly)){
                 return new Assembly(this, lAssembly);
             }else{
-                throw new System.Exception("Assembly <" + pAssemblyName + "> not found! ");
+                throw new ApplicationException("Assembly <" + pAssemblyName + "> not found! ");
             }
         }
 
@@ -70,7 +70,7 @@ namespace NetComBridgeLib
                 for (int t = 0; t < lTypes.Length; t++){
                     try { 
                        this.cTypes.Add(lTypes[t].FullName, lTypes[t]); 
-                    }catch(System.Exception e){
+                    }catch(ApplicationException e){
                        //System.Console.WriteLine(lTypes[t].FullName);
                     }
                 }
@@ -78,12 +78,12 @@ namespace NetComBridgeLib
         }
 
         public Assembly LoadLibrary(string pDllPath){
-            if (! System.IO.File.Exists(pDllPath)) throw new System.Exception("Library not found : " + pDllPath);
+            if (! System.IO.File.Exists(pDllPath)) throw new ApplicationException("Library not found : " + pDllPath);
             System.Reflection.Assembly lAssembly;
             try{
                 lAssembly = System.Reflection.Assembly.LoadFrom(pDllPath);
-            }catch (System.Exception e){
-                throw new System.Exception("Failed to load the library : " + pDllPath + "\r\n" + e.Message);
+            }catch (ApplicationException e){
+                throw new ApplicationException("Failed to load the library : " + pDllPath + "\r\n" + e.Message);
             }
             this.LoadTypes();
             return new Assembly(this, lAssembly);
@@ -94,13 +94,13 @@ namespace NetComBridgeLib
                 string lName = pAssemblyName + ", Version=" + pVersion + ", Culture=" + pCulture + ", PublicKeyToken=" + pPublicKeyToken;
                 System.Reflection.Assembly lAssembly = this.lDomain.Load(lName);
                 if (lAssembly == null){
-                    throw new System.Exception("Failed to load the library : " + pAssemblyName );
+                    throw new ApplicationException("Failed to load the library : " + pAssemblyName );
                 }else{
                     this.LoadTypes();
                     return new Assembly(this, lAssembly);
                 }
-            }catch (System.Exception e){
-                throw new System.Exception("Failed to load the library : " + pAssemblyName + "\r\n" + e.Message);
+            }catch (ApplicationException e){
+                throw new ApplicationException("Failed to load the library : " + pAssemblyName + "\r\n" + e.Message);
             }
         }
 

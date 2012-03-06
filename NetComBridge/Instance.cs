@@ -39,21 +39,21 @@ namespace NetComBridgeLib
 
         public bool IsReady{
             get { 
-                if (this.lErrorMessage != null) throw new System.Exception(this.lErrorMessage);
+                if (this.lErrorMessage != null) throw new ApplicationException(this.lErrorMessage);
                 return this.lIsReady;           
             }
         }
 
         private System.Object CurrentInstance{
             get{
-                if (this.lInstance == null) throw new System.Exception("Instance is null !");
+                if (this.lInstance == null) throw new ApplicationException("Instance is null !");
                 return this.lInstance;
             }
         }
 
         public Property Property(string pPropertyName){
             System.Reflection.PropertyInfo lProperty = this.lType.GetProperty(pPropertyName);
-            if (lProperty == null) throw new System.Exception("Property <" + pPropertyName + "> not found! ");
+            if (lProperty == null) throw new ApplicationException("Property <" + pPropertyName + "> not found! ");
             return new Property(this.lBridge, this.lType, this.CurrentInstance, lProperty);
         }
 
@@ -111,34 +111,34 @@ namespace NetComBridgeLib
                 if (lNewType.IsAssignableFrom(this.lType)){
                     return new Instance(this.lBridge, lNewType, this.CurrentInstance);
 			    }else{
-                    throw new System.Exception("Cast fail from Type <" + this.lType.FullName + "> to type <" + pNewType + ">! ");
+                    throw new ApplicationException("Cast fail from Type <" + this.lType.FullName + "> to type <" + pNewType + ">! ");
 			    }
             }else{
-                throw new System.Exception("Type <" + pNewType + "> not found! ");
+                throw new ApplicationException("Type <" + pNewType + "> not found! ");
             }
         }
 
         public Method Method(string pMethod){
            // if (0 != this.lType.GetMember(pMethod, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.InvokeMethod).Length) 
-           //       throw new System.Exception("Method <" + pMethod + "> not found! ");
+           //       throw new ApplicationException("Method <" + pMethod + "> not found! ");
             return new Method(this.lBridge, this.CurrentInstance, this.lType, pMethod);
         }
 
         public System.Object GetField(string pFieldName){
             try{
                 System.Reflection.FieldInfo lField = this.lType.GetField(pFieldName);
-                if (lField == null) throw new System.Exception("Field <" + pFieldName + "> not found! ");
+                if (lField == null) throw new ApplicationException("Field <" + pFieldName + "> not found! ");
                 return lField.GetValue(this.CurrentInstance);
-            }catch(System.Exception e){
-                throw new System.Exception("Field <" + pFieldName + "> failed! \r\n" + e.Message );
+            }catch(ApplicationException e){
+                throw new ApplicationException("Field <" + pFieldName + "> failed! \r\n" + e.Message );
             }
         }
 
         public void SetField(string pFieldName, ref object pArgument){
             try{
                 this.lType.GetField(pFieldName).SetValue(this.CurrentInstance, pArgument);
-            }catch(System.Exception e){
-                throw new System.Exception("Field <" + pFieldName + "> failed! \r\n" + e.Message );
+            }catch(ApplicationException e){
+                throw new ApplicationException("Field <" + pFieldName + "> failed! \r\n" + e.Message );
             }
         }
 

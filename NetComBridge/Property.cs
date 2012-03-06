@@ -25,16 +25,16 @@ namespace NetComBridgeLib
             try{
                 object lValue = lProperty.GetValue(this.lInstance, null);
                 return new Instance(this.lBridge, lValue);
-            }catch (System.Exception e){
-                throw new System.Exception("Get Property <" + lProperty.Name + "> failed! \r\n" + e.Message);
+            }catch (ApplicationException e){
+                throw new ApplicationException("Get Property <" + lProperty.Name + "> failed! \r\n" + e.Message);
             }
         }
 
         public void Set(ref object pArgument){
             try{
                 lProperty.SetValue(this.lInstance, pArgument, null);
-            }catch (System.Exception e){
-                throw new System.Exception("Set Property <" + lProperty.Name + "> failed! \r\n" + e.Message);
+            }catch (ApplicationException e){
+                throw new ApplicationException("Set Property <" + lProperty.Name + "> failed! \r\n" + e.Message);
             }
         }
 

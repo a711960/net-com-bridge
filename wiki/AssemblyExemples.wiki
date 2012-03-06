@@ -3,7 +3,7 @@
 
  {{{
  Sub Test_DateTime()
-     Dim lBridge As New NetComBridgeLib.NetComBridge
+     Dim lBridge As New NetCom.Bridge
      MsgBox lBridge.Type("System.DateTime").Property("Now").Get().Method("ToString").Invoke1("yyyy MM dd")
  End Sub
  }}}
@@ -11,7 +11,7 @@
 === Use a .NET form object ===
  {{{
 Sub Test_MessageBox
-    Dim lBridge As New NetComBridgeLib.NetComBridge
+    Dim lBridge As New NetCom.Bridge
     lBridge.LoadAssembly "System.Windows.Forms", "2.0.0.0", "neutral", "b77a5c561934e089"
     lBridge.Type("System.Windows.Forms.MessageBox").Method("Show").Invoke3 _
         "My message", _

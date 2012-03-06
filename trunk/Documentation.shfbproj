@@ -19,15 +19,16 @@
     <HtmlHelpName>NetComBridgeApi</HtmlHelpName>
     <Language>en-US</Language>
     <DocumentationSources>
-      <DocumentationSource sourceFile="NetComBridge\bin\Release\NetComBridge.xml" />
-<DocumentationSource sourceFile="NetComBridge\bin\Release\NetComBridgeLib.dll" /></DocumentationSources>
+      <DocumentationSource sourceFile="NetComBridge\bin\Release\NetCom.xml" />
+      <DocumentationSource sourceFile="NetComBridge\bin\Release\NetCom.dll" />
+    </DocumentationSources>
     <VisibleItems>None</VisibleItems>
     <ApiFilter>
       <Filter entryType="Namespace" fullName="NetComBridgeLib" isExposed="False">
   <Filter entryType="Class" fullName="NetComBridgeLib.Assembly" filterName="Assembly" isExposed="True" />
-  <Filter entryType="Class" fullName="NetComBridgeLib.Instance" filterName="Instance" isExposed="True" />
+  <Filter entryType="Class" fullName="NetComBridgeLib.Bridge" filterName="Bridge" isExposed="True" />
+  <Filter entryType="Delegate" fullName="NetComBridgeLib.Bridge.EventHandler" filterName="Bridge.EventHandler" isExposed="False" />
   <Filter entryType="Class" fullName="NetComBridgeLib.Method" filterName="Method" isExposed="True" />
-  <Filter entryType="Class" fullName="NetComBridgeLib.NetComBridge" filterName="NetComBridge" isExposed="True" />
   <Filter entryType="Class" fullName="NetComBridgeLib.Property" filterName="Property" isExposed="True" />
   <Filter entryType="Class" fullName="NetComBridgeLib.Type" filterName="Type" isExposed="True" />
 </Filter>
@@ -36,6 +37,7 @@
     <KeepLogFile>False</KeepLogFile>
     <HelpTitle>NetComBridge Api Documentation</HelpTitle>
     <SyntaxFilters>VisualBasic</SyntaxFilters>
+    <MissingTags>None</MissingTags>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in
        order for Visual Studio to perform the build.  The others are optional

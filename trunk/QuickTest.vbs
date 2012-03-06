@@ -4,7 +4,7 @@
 
 Dim lBridge, ret
 
-Set lBridge = CreateObject("NetComBridgeLib.NetComBridge")
+Set lBridge = CreateObject("NetCom.Bridge")
 
 lBridge.LoadAssembly "System.Windows.Forms", "2.0.0.0", "neutral", "b77a5c561934e089"
 ret=lBridge.Type("System.Windows.Forms.MessageBox").Method("Show").Invoke3( _

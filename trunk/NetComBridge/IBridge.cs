@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NetComBridgeLib
+namespace NetCom
 {
     [Guid("ed5392cc-fdfb-4cb9-8370-4f4487c18b76")]
     [InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]

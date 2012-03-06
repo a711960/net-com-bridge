@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NetComBridgeLib
+namespace NetCom
 {
     /// <summary>
     /// Class reffering to types

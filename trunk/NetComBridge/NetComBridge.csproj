@@ -8,7 +8,7 @@
     <ProjectGuid>{D16B089D-03B1-4A19-9697-75D8AAF4A52E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NetComBridgeLib</RootNamespace>
+    <RootNamespace>NetCom</RootNamespace>
     <AssemblyName>NetCom</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

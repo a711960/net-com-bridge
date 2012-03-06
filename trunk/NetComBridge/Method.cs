@@ -14,7 +14,7 @@ namespace NetComBridgeLib
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         internal static extern short GetKeyState(int virtualKeyCode);
 
-        private NetComBridge lBridge;
+        private Bridge lBridge;
         private System.Type lType;
         private System.String lMethodName;
         private System.Object lInstance;
@@ -25,7 +25,7 @@ namespace NetComBridgeLib
         System.Timers.Timer timerhotkey;
 
 
-        internal Method(NetComBridge netComBridge, System.Object pInstance, System.Type pType, System.String pMethodName){
+        internal Method(Bridge netComBridge, System.Object pInstance, System.Type pType, System.String pMethodName){
             this.lBridge = netComBridge;
             this.lInstance = pInstance;
             this.lType = pType;

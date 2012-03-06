@@ -9,9 +9,9 @@ namespace NetComBridgeLib
     public class Assembly : NetComBridgeLib.IAssembly
     {
         private System.Reflection.Assembly lAssembly=null;
-        private NetComBridge lBridge=null;
+        private Bridge lBridge=null;
 
-        internal Assembly(NetComBridge netComBridge, System.Reflection.Assembly pAssembly){
+        internal Assembly(Bridge netComBridge, System.Reflection.Assembly pAssembly){
             this.lBridge = netComBridge;
             this.lAssembly = pAssembly;
         }

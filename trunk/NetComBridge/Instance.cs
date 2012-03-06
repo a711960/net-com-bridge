@@ -10,26 +10,32 @@ namespace NetComBridgeLib
     [ClassInterface(ClassInterfaceType.None)]
     public class Instance : IInstance
     {
-        private NetComBridge lBridge;
+        private Bridge lBridge;
         public System.Type lType = null;
         public System.Object lInstance = null;
         public bool lIsReady;
         public System.String lErrorMessage;
 
-        internal Instance(NetComBridge pBridge, System.Type pObjectType, System.Object pObject){
+        internal Instance(Bridge pBridge, System.Type pObjectType, System.Object pObject){
             this.lBridge = pBridge;
             this.lType = pObjectType;
             this.lInstance = pObject;
         }
 
-        internal Instance(NetComBridge pBridge, System.Object pObject){
+        internal Instance(Bridge pBridge, System.Object pObject){
             this.lBridge = pBridge;
             if(pObject!=null) this.lType = pObject.GetType();
             this.lInstance = pObject;
         }
 
-        internal Instance(NetComBridge pBridge){
+        internal Instance(Bridge pBridge){
             this.lBridge = pBridge;
+        }
+
+        public void SubscribeEvent(String pEventName, object[] arguments){
+            System.Reflection.EventInfo eventInfo = this.lType.GetEvent(pEventName);
+            Delegate handler = Delegate.CreateDelegate(eventInfo.EventHandlerType, this.lBridge, this.lBridge.lHandleEventMethod);
+            eventInfo.AddEventHandler(this.lInstance, handler);
         }
 
         public Instance Wait(int pTimeMillisecond){

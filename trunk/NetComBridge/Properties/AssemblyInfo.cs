@@ -1,4 +1,4 @@
-﻿// General Information about an assembly is controlled through the following 
+// General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: System.Reflection.AssemblyTitle("NetComBridge")]
@@ -6,7 +6,7 @@
 [assembly: System.Reflection.AssemblyConfiguration("")]
 [assembly: System.Reflection.AssemblyCompany("Florent Breheret")]
 [assembly: System.Reflection.AssemblyProduct("NetComBridge")]
-[assembly: System.Reflection.AssemblyCopyright("Copyright © Florent Breheret 2012")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright � Florent Breheret 2012")]
 [assembly: System.Reflection.AssemblyTrademark("")]
 [assembly: System.Reflection.AssemblyCulture("")]
 
@@ -27,6 +27,6 @@
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
+// [assembly: AssemblyVersion("1.0.4.1")]
 [assembly: System.Reflection.AssemblyVersion("1.0.4.1")]
 [assembly: System.Reflection.AssemblyFileVersion("1.0.4.1")]

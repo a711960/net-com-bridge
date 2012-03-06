@@ -24,7 +24,7 @@ namespace NetComBridgeLib
         }
 
         /// <summary>Returns the type object</summary>
-        /// <param name="message">Type name</param>
+        /// <param name="pFullTypeName">Type name</param>
         /// <returns>Type object</returns>
         public Type Type(string pFullTypeName){
             System.Type lType;

@@ -37,11 +37,15 @@ Source: ".\NetComBridge\bin\Release\License.txt"; DestDir: "{app}"; Flags: ignor
 Source: ".\NetComBridge\bin\Release\Readme.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\NetComBridgeApi.chm"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\QuickTest.vbs"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\Examples\*.xls"; DestDir: "{app}\Examples"; Flags: ignoreversion skipifsourcedoesntexist
+Source: ".\Examples\*.vbs"; DestDir: "{app}\Examples"; Flags: ignoreversion skipifsourcedoesntexist
 
 [Icons]
 Name: "{group}\Readme"; Filename: "{app}\Readme.txt"; WorkingDir: "{app}";
 Name: "{group}\NetComBridge API"; Filename: "{app}\NetComBridgeApi.chm"; WorkingDir: "{app}";
 Name: "{group}\QuickTest"; Filename: "{app}\QuickTest.vbs"; WorkingDir: "{app}";
+Name: "{group}\Examples"; Filename: "{app}\Examples"; WorkingDir: "{app}";
+Name: "{group}\Project Home Page"; Filename: "http://code.google.com/p/net-com-bridge/" ; WorkingDir: "{app}";
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 
 [Registry]

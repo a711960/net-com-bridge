@@ -5,6 +5,7 @@
 #	http://sandcastle.codeplex.com/
 #########################################################################################################################################
 
+cls
 mode con cols=120 lines=60
 
 ###################### Save allPath ###################################
@@ -50,6 +51,12 @@ function getSha1($filepath){
 }
 
 
+function writeErr($texte){
+    write-host($texte) -ForegroundColor red; break;
+    write-host ""
+    read-host "Press enter to quit " | out-null
+}
+
 
 #Check folders and files
 (gi Env:PATH).value.split(";")| ForEach {if(!(test-path $_)){write-host("  Error ENV:PATH : Folder " + $_ + """ not found" ) -ForegroundColor Red;}}
@@ -83,17 +90,17 @@ write-host "   ** Update the version in AssemblyInfo.cs ..."
 write-host ""
 write-host "   ** Msbuild compile sources ..."
 	cmd-msbuild /v:quiet /p:Configuration=Release /p:TargetFrameworkVersion=v3.5 /p:SignAssembly=true $csproj_path
-    if($LASTEXITCODE -eq 1) { write-host("  Source compilation failed ! ") -ForegroundColor red; break; }
+    if($LASTEXITCODE -eq 1) { writeErr("  Source compilation failed ! "); break; }
 
 write-host ""
 write-host "   ** Api documentation creation ..."
 	cmd-msbuild /v:quiet /p:CleanIntermediates=True /p:Configuration=Release $shfbproj_path
-    if($LASTEXITCODE -eq 1) { write-host("  Api documentation creation failed ! ") -ForegroundColor red; break; }
+    if($LASTEXITCODE -eq 1) { writeErr("  Api documentation creation failed ! ") ; break; }
 	
 write-host ""
 write-host "   ** InnoSetup create the paclage ..."
 	cmd-iscc /q $iss_path
-    if($LASTEXITCODE -eq 1) { write-host("  Package creation failed ! ") -ForegroundColor red; break; }
+    if($LASTEXITCODE -eq 1) { writeErr("  Package creation failed ! "); break; }
     
 write-host ""
 write-host "   ** Package installaton ..."

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NetComBridgeLib
+namespace NetCom
 {
     /// <summary>  Class reffering to an assembly </summary>
     [Guid("c8916909-418b-4616-900f-e76e6f7369ac")]
     [ClassInterface(ClassInterfaceType.None)]
-    public class Assembly : NetComBridgeLib.IAssembly
+    public class Assembly : NetCom.IAssembly
     {
         private System.Reflection.Assembly lAssembly=null;
         private Bridge lBridge=null;

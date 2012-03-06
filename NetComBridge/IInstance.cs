@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NetComBridgeLib
+namespace NetCom
 {
     /// <summary>Interface of the Instance class</summary>
     [Guid("af9a9a70-672f-4e8b-b52a-bee5f9d11b0b"),InterfaceType(ComInterfaceType.InterfaceIsDual)]

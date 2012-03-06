@@ -4,7 +4,7 @@ The following code launch Firefox and search the word "England"
 
  {{{
 Sub Test_WebDriver()
-    Dim lBridge As New NetComBridgeLib.NetComBridge
+    Dim lBridge As New NetCom.Bridge
     Dim webdriver As NetComBridgeLib.Instance
     lBridge.LoadLibrary "C:\net35\WebDriver.dll"
     Set webdriver = lBridge.Type("OpenQA.Selenium.Firefox.FirefoxDriver").Instantiate0().CastAs("OpenQA.Selenium.IWebDriver")
@@ -23,7 +23,7 @@ End Sub
 The following code launch Firefox and search the word "England"
  {{{
 Sub Test_WebDriverBackedSelenium()
-    Dim lBridge As New NetComBridgeLib.NetComBridge
+    Dim lBridge As New NetCom.Bridge
     Dim selenium As NetComBridgeLib.Instance
     lBridge.LoadLibrary "C:\net35\WebDriver.dll"
     lBridge.LoadLibrary "C:\net35\Selenium.WebDriverBackedSelenium.dll"

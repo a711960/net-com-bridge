@@ -8,17 +8,30 @@ namespace NetComBridgeLib
     /// </summary>
     [Guid("d43f6126-5995-4e81-aec9-4b58e66551d9")]
     [ClassInterface(ClassInterfaceType.None)]
-    public class NetComBridge : NetComBridgeLib.INetComBridge
+    [ComSourceInterfaces(typeof(IEvents))]
+    public class Bridge : IBridge
     {
         System.Collections.Generic.Dictionary<string, System.Type> cTypes;
         System.Collections.Generic.Dictionary<string, System.Reflection.Assembly> cAssemblies;
         System.AppDomain lDomain;
         int lTimeout;
 
-        public NetComBridge(){
+        [ComVisible(false)]
+        public delegate void EventHandler(String name, Object sender, Object arguments); 
+        public System.Reflection.MethodInfo lHandleEventMethod;
+        public event EventHandler Event;
+
+        public Bridge(){
             this.lDomain = System.AppDomain.CurrentDomain;
             this.LoadTypes();
             this.lTimeout = 30000;
+            lHandleEventMethod = this.GetType().GetMethod("HandleEvent");
+        }
+
+        internal void HandleEvent(Object sender, EventArgs e){
+            if (Event != null){
+                Event("", sender, e);
+            }
         }
 
         public void Wait(int pTimeMillisecond){

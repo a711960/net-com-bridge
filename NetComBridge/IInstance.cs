@@ -9,6 +9,7 @@ namespace NetComBridgeLib
     {
         Instance CastAs(string pNewType);
         object GetField(string pField);
+        void SubscribeEvent(String pEventName, object[] arguments);
         string[] GetFieldsList();
         string[] GetMethodsList();
         Method Method(string pMethod);

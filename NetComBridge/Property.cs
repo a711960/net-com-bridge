@@ -8,12 +8,12 @@ namespace NetComBridgeLib
     [ClassInterface(ClassInterfaceType.None)]
     public class Property : NetComBridgeLib.IProperty
     {
-        private NetComBridge lBridge;
+        private Bridge lBridge;
         private System.Object lInstance;
         private System.Type lType;
         private System.Reflection.PropertyInfo lProperty;
 
-        internal Property(NetComBridge pBridge, System.Type pType, object pInstance, System.Reflection.PropertyInfo pProperty)
+        internal Property(Bridge pBridge, System.Type pType, object pInstance, System.Reflection.PropertyInfo pProperty)
         {
             this.lBridge = pBridge;
             this.lType = pType;

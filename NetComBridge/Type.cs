@@ -11,9 +11,9 @@ namespace NetComBridgeLib
     public class Type : IType
     {
         private System.Type lType;
-        private NetComBridge lBridge;
+        private Bridge lBridge;
 
-        public Type(NetComBridge netComBridge, System.Type lType){
+        public Type(Bridge netComBridge, System.Type lType){
             this.lBridge = netComBridge;
             this.lType = lType;
         }

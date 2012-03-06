@@ -2,7 +2,7 @@
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: System.Reflection.AssemblyTitle("NetComBridge")]
-[assembly: System.Reflection.AssemblyDescription("")]
+[assembly: System.Reflection.AssemblyDescription("NetComBridge Type Library")]
 [assembly: System.Reflection.AssemblyConfiguration("")]
 [assembly: System.Reflection.AssemblyCompany("Florent Breheret")]
 [assembly: System.Reflection.AssemblyProduct("NetComBridge")]
@@ -28,5 +28,5 @@
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.4.1")]
-[assembly: System.Reflection.AssemblyVersion("1.0.4.1")]
-[assembly: System.Reflection.AssemblyFileVersion("1.0.4.1")]
+[assembly: System.Reflection.AssemblyVersion("1.0.5.1")]
+[assembly: System.Reflection.AssemblyFileVersion("1.0.5.1")]

@@ -32,7 +32,7 @@ namespace NetComBridgeLib
             if (lType!=null){
                 return new Type(this.lBridge , lType);
             }else{
-                throw new System.Exception("Type <" + pFullTypeName + "> not found! ");
+                throw new ApplicationException("Type <" + pFullTypeName + "> not found! ");
             }
         }
 

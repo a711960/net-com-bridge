@@ -24,27 +24,27 @@ namespace NetComBridgeLib
 
         public Method Method(string pStaticMethodName) {
             //if(0!=this.lType.GetMember(pStaticMethodName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Static).Length)
-            //  throw new System.Exception("Static method <" + pStaticMethodName + "> not found! ");
+            //  throw new ApplicationException("Static method <" + pStaticMethodName + "> not found! ");
             return new Method(this.lBridge, null, this.lType, pStaticMethodName);
         }
 
         public Property Property(string pPropertyName){
             try{
                 System.Reflection.PropertyInfo lProperty = this.lType.GetProperty(pPropertyName);
-                if (lProperty == null) throw new System.Exception("Property <" + pPropertyName + "> not found! ");
+                if (lProperty == null) throw new ApplicationException("Property <" + pPropertyName + "> not found! ");
                 return new Property(this.lBridge, this.lType, null, lProperty);
-            }catch (System.Exception e){
-                throw new System.Exception("Property <" + pPropertyName + "> failed! \r\n" + e.Message);
+            }catch (ApplicationException e){
+                throw new ApplicationException("Property <" + pPropertyName + "> failed! \r\n" + e.Message);
             }
         }
 
         public Instance Field(string pFieldName) {
             try{
                 System.Reflection.FieldInfo lField = this.lType.GetField(pFieldName);
-                if (lField == null) throw new System.Exception("Field <" + pFieldName + "> not found! ");
+                if (lField == null) throw new ApplicationException("Field <" + pFieldName + "> not found! ");
                 return new Instance(this.lBridge, this.lType, lField.GetValue(null));
-            }catch(System.Exception e){
-                throw new System.Exception("Field <" + pFieldName + "> failed! \r\n" + e.Message );
+            }catch(ApplicationException e){
+                throw new ApplicationException("Field <" + pFieldName + "> failed! \r\n" + e.Message );
             }
         }
 
@@ -94,12 +94,12 @@ namespace NetComBridgeLib
                         }
                     }
                     System.Reflection.ConstructorInfo  lConstructor = lType.GetConstructor(lTypes);
-                    if (lConstructor == null) throw new System.Exception("Contructor <" + this.lType.FullName + "> not found! ");
+                    if (lConstructor == null) throw new ApplicationException("Contructor <" + this.lType.FullName + "> not found! ");
                     lObject = lConstructor.Invoke(lArguments);
                 }
                 return new Instance(this.lBridge, lObject);
-            }catch (System.Exception e){
-                throw new System.Exception("Instantiate failed! \r\n" + e.InnerException.Message);
+            }catch (ApplicationException e){
+                throw new ApplicationException("Instantiate failed! \r\n" + e.InnerException.Message);
             }
         }
 

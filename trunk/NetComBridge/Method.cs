@@ -10,14 +10,19 @@ namespace NetComBridgeLib
     [ClassInterface(ClassInterfaceType.None)]
     public class Method : IMethod
     {
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        internal static extern short GetKeyState(int virtualKeyCode);
+
         private NetComBridge lBridge;
         private System.Type lType;
         private System.String lMethodName;
         private System.Object lInstance;
         private object[] lArguments;
         private System.Reflection.MethodInfo lMethod;
-        private System.String ErrorMessage;
         private Instance lReturnInstance;
+        System.Threading.Thread thread;
+        System.Timers.Timer timerhotkey;
 
 
         internal Method(NetComBridge netComBridge, System.Object pInstance, System.Type pType, System.String pMethodName){
@@ -25,6 +30,15 @@ namespace NetComBridgeLib
             this.lInstance = pInstance;
             this.lType = pType;
             this.lMethodName = pMethodName;
+            this.timerhotkey = new System.Timers.Timer(100);
+            this.timerhotkey.Elapsed += new System.Timers.ElapsedEventHandler(TimerCheckHotKey);
+        }
+
+        private void TimerCheckHotKey(object source, System.Timers.ElapsedEventArgs e){
+            if ((GetKeyState(0x1b) & 0x8000) != 0) {
+                this.timerhotkey.Stop();
+                this.thread.Abort();
+            }
         }
 
         public Instance Invoke0(){
@@ -86,15 +100,19 @@ namespace NetComBridgeLib
                     if (lMethod != null) break;
                 }
             }
-            if (lMethod == null) throw new System.Exception("Method <" + this.lMethodName + "> not found! ");
-            if(lMethod.IsStatic==false && lInstance==null) throw new System.Exception("Can't invoke method <" + this.lMethodName + ">. Type <" + lType.FullName + "> is not instantiated ");
+            if (lMethod == null) throw new ApplicationException("Method <" + this.lMethodName + "> not found! ");
+            if(lMethod.IsStatic==false && lInstance==null) throw new ApplicationException("Can't invoke method <" + this.lMethodName + ">. Type <" + lType.FullName + "> is not instantiated ");
             //Invoke method
             this.lReturnInstance = new Instance(this.lBridge);
-            System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(InvokeProc));
-            t.Start();
+            this.thread = new System.Threading.Thread(new System.Threading.ThreadStart(InvokeProc));
+            this.thread.Start();
+
+            this.timerhotkey.Start();
             if (pSynchrone){
-                if (!t.Join(this.lBridge.Timeout)) throw new System.Exception("Timeout reached while invoking method <" + this.lMethodName + "> !   ");
-                if (this.lReturnInstance.lErrorMessage != null) throw new System.Exception(this.lReturnInstance.lErrorMessage);
+                bool succed = this.thread.Join(this.lBridge.Timeout);
+                this.timerhotkey.Stop();
+                if (!succed) throw new ApplicationException("Timeout reached while invoking method <" + this.lMethodName + "> !   ");
+                if (this.lReturnInstance.lErrorMessage != null) throw new ApplicationException(this.lReturnInstance.lErrorMessage);
             }
             return this.lReturnInstance;      
         }
@@ -108,9 +126,10 @@ namespace NetComBridgeLib
                     this.lReturnInstance.lInstance=lRet;
                     this.lReturnInstance.lType = lRet.GetType();
                 }
-            }catch(System.Exception e){
+            }catch(ApplicationException e){
                 this.lReturnInstance.lErrorMessage = "Method <" + this.lMethodName + "> invocation failed ! \r\n" + e.InnerException.Message;
             }
+            this.timerhotkey.Stop();
             this.lReturnInstance.lIsReady = true;
         }
 

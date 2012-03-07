@@ -4,18 +4,18 @@ The following code launch Firefox and search the word "England"
 
  {{{
 Sub Test_WebDriver()
-    Dim lBridge As New NetCom.Bridge
-    Dim webdriver As NetComBridgeLib.Instance
+    Dim lBridge As New NetComBridge.Bridge
+    Dim webdriver As NetComBridge.Instance
     lBridge.LoadLibrary "C:\net35\WebDriver.dll"
-    Set webdriver = lBridge.Type("OpenQA.Selenium.Firefox.FirefoxDriver").Instantiate0().CastAs("OpenQA.Selenium.IWebDriver")
-    webdriver.Method("Get").Invoke1 "http://www.google.com"
-    webdriver.Method("FindElement").Invoke1( _
-            lBridge.Type("OpenQA.Selenium.By").Method("Name").Invoke1("q") _
-        ).Method("SendKeys").Invoke1 ("England")
-    webdriver.Method("FindElement").Invoke1( _
-            lBridge.Type("OpenQA.Selenium.By").Method("Name").Invoke1("btnG") _
-        ).Method("Click").Invoke0
-    webdriver.Method("Quit").Invoke0
+    Set webdriver = lBridge.Type("OpenQA.Selenium.Firefox.FirefoxDriver").Instantiate().CastAs("OpenQA.Selenium.IWebDriver")
+    webdriver.Method("Get").Invok "http://www.google.com"
+    webdriver.Method("FindElement").Invok( _
+            lBridge.Type("OpenQA.Selenium.By").Method("Name").Invok("q") _
+        ).Method("SendKeys").Invok ("England")
+    webdriver.Method("FindElement").Invok( _
+            lBridge.Type("OpenQA.Selenium.By").Method("Name").Invok("btnG") _
+        ).Method("Click").Invok
+    webdriver.Method("Quit").Invok
 End Sub
  }}}
 
@@ -23,19 +23,19 @@ End Sub
 The following code launch Firefox and search the word "England"
  {{{
 Sub Test_WebDriverBackedSelenium()
-    Dim lBridge As New NetCom.Bridge
-    Dim selenium As NetComBridgeLib.Instance
+    Dim lBridge As New NetComBridge.Bridge
+    Dim selenium As NetComBridge.Instance
     lBridge.LoadLibrary "C:\net35\WebDriver.dll"
     lBridge.LoadLibrary "C:\net35\Selenium.WebDriverBackedSelenium.dll"
     lBridge.LoadLibrary "C:\net35\ThoughtWorks.Selenium.Core.dll"
-    Set selenium = lBridge.Type("Selenium.WebDriverBackedSelenium").Instantiate2( _
-            lBridge.Type("OpenQA.Selenium.Firefox.FirefoxDriver").Instantiate0(), _
+    Set selenium = lBridge.Type("Selenium.WebDriverBackedSelenium").Instantiate( _
+            lBridge.Type("OpenQA.Selenium.Firefox.FirefoxDriver").Instantiate(), _
             "http://www.google.com" _
         ).CastAs("Selenium.ISelenium")
-    selenium.Method("Start").Invoke0
-    selenium.Method("Open").Invoke1 "/"
-    selenium.Method("Type").Invoke2 "name=q", "England"
-    selenium.Method("Click").Invoke1 "name=btnG"
-    selenium.Method("Close").Invoke0
+    selenium.Method("Start").Invok
+    selenium.Method("Open").Invok "/"
+    selenium.Method("Type").Invok "name=q", "England"
+    selenium.Method("Click").Invok "name=btnG"
+    selenium.Method("Close").Invok
 End Sub
  }}}

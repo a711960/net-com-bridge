@@ -34,7 +34,9 @@ namespace NetComBridge
         private System.CodeDom.Compiler.CodeDomProvider provider;
         private System.CodeDom.Compiler.CompilerParameters cpParams;
         private System.Text.StringBuilder sbCode;
-        private NetComBridge.Assembly assembly;
+        static NetComBridge.Assembly assembly;
+        static StringBuilder sbPreviousCode;
+        static bool isAlreadyCompiled;
 
         public Compiler() {
             this.provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp");
@@ -61,21 +63,27 @@ namespace NetComBridge
         /// <summary>Compile the code and return an Assembly type</summary>
         /// <returns></returns>
         public NetComBridge.Assembly Compile(){
-            System.CodeDom.Compiler.CompilerResults crResults = this.provider.CompileAssemblyFromSource(this.cpParams, this.sbCode.ToString());
-            //this.provider.Dispose();
-            if (crResults.Errors.HasErrors){
-                StringBuilder sbErrors = new StringBuilder();
-                foreach (System.CodeDom.Compiler.CompilerError err in crResults.Errors) {
-                    sbErrors.AppendLine(System.Text.RegularExpressions.Regex.Replace( err.ToString(), @"\w:\\[^(]+", "line") );
+            if ( !Compiler.isAlreadyCompiled) {
+                System.CodeDom.Compiler.CompilerResults crResults = this.provider.CompileAssemblyFromSource(this.cpParams, this.sbCode.ToString());
+                if (crResults.Errors.HasErrors){
+                    StringBuilder sbErrors = new StringBuilder();
+                    foreach (System.CodeDom.Compiler.CompilerError err in crResults.Errors) {
+                        sbErrors.AppendLine(System.Text.RegularExpressions.Regex.Replace( err.ToString(), @"\w:\\[^(]+", "line") );
+                    }
+                    throw new System.ApplicationException(sbErrors.ToString() );
+                }else{
+                    System.Reflection.Assembly compiledAssembly = crResults.CompiledAssembly;
+                    NetComBridge.Bridge bridge = new Bridge();
+                    Compiler.assembly = new Assembly(bridge, compiledAssembly);
+                    Compiler.isAlreadyCompiled = true;
+                    Compiler.sbPreviousCode = this.sbCode;
+                    return assembly;
                 }
-                throw new System.ApplicationException(sbErrors.ToString() );
+            }else if (!Compiler.sbPreviousCode.Equals(this.sbCode)) {
+                throw new ApplicationException("The code is already compiled.\r\nReopen Excel to compile again.\r\n");
             }else{
-                System.Reflection.Assembly compiledAssembly = crResults.CompiledAssembly;
                 NetComBridge.Bridge bridge = new Bridge();
-               // bridge.LoadTypes();
-               // bridge.LoadLibrary(this.cpParams.OutputAssembly);
-                this.assembly = new Assembly(bridge, compiledAssembly);
-                return assembly;
+                return Compiler.assembly;
             }
         }
     }

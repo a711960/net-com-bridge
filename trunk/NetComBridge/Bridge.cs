@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace NetComBridge
 {
-    /// <summary>Class reffering to the bridge </summary>
+    /// <summary>Class to instanciate and use object members</summary>
     /// <example>
     /// 
     /// This example asks the user to show the current date.
@@ -31,7 +31,7 @@ namespace NetComBridge
     [Guid("d43f6126-5995-4e81-aec9-4b58e66551d9")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComSourceInterfaces(typeof(IEvents))]
-    public class Bridge : IBridge
+    public class Bridge :  IBridge
     {
         System.Collections.Generic.Dictionary<string, System.Type> cTypes;
         System.Collections.Generic.Dictionary<string, System.Reflection.Assembly> cAssemblies;

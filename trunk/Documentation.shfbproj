@@ -27,18 +27,19 @@
       <Filter entryType="Namespace" fullName="NetComBridge" isExposed="False">
   <Filter entryType="Class" fullName="NetComBridge.Assembly" filterName="Assembly" isExposed="True" />
   <Filter entryType="Class" fullName="NetComBridge.Bridge" filterName="Bridge" isExposed="True">
+    <Filter entryType="Constructor" fullName="NetComBridge.Bridge.#ctor" filterName=".ctor" isExposed="False" />
     <Filter entryType="Field" fullName="NetComBridge.Bridge.lHandleEventMethod" filterName="lHandleEventMethod" isExposed="False" />
   </Filter>
   <Filter entryType="Delegate" fullName="NetComBridge.Bridge.EventHandler" filterName="Bridge.EventHandler" isExposed="True" />
-  <Filter entryType="Class" fullName="NetComBridge.Instance" filterName="Instance" isExposed="True">
-    <Filter entryType="Field" fullName="NetComBridge.Instance.lErrorMessage" filterName="lErrorMessage" isExposed="False" />
-    <Filter entryType="Field" fullName="NetComBridge.Instance.lInstance" filterName="lInstance" isExposed="False" />
-    <Filter entryType="Field" fullName="NetComBridge.Instance.lIsReady" filterName="lIsReady" isExposed="False" />
-    <Filter entryType="Field" fullName="NetComBridge.Instance.lType" filterName="lType" isExposed="False" />
+  <Filter entryType="Class" fullName="NetComBridge.Compiler" filterName="Compiler" isExposed="True">
+    <Filter entryType="Constructor" fullName="NetComBridge.Compiler.#ctor" filterName=".ctor" isExposed="False" />
   </Filter>
+  <Filter entryType="Class" fullName="NetComBridge.Instance" filterName="Instance" isExposed="True" />
   <Filter entryType="Class" fullName="NetComBridge.Method" filterName="Method" isExposed="True" />
   <Filter entryType="Class" fullName="NetComBridge.Property" filterName="Property" isExposed="True" />
-  <Filter entryType="Class" fullName="NetComBridge.Type" filterName="Type" isExposed="True" />
+  <Filter entryType="Class" fullName="NetComBridge.Type" filterName="Type" isExposed="True">
+    <Filter entryType="Constructor" fullName="NetComBridge.Type.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
 </Filter>
     </ApiFilter>
     <FrameworkVersion>.NET 3.5</FrameworkVersion>

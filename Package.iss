@@ -44,7 +44,7 @@ Source: ".\Examples\*.vbs"; DestDir: "{app}\Examples"; Flags: ignoreversion skip
 ;Name: "{group}\Readme"; Filename: "{app}\Readme.txt"; WorkingDir: "{app}";
 Name: "{group}\NetComBridge API"; Filename: "{app}\NetComBridgeApi.chm"; WorkingDir: "{app}";
 Name: "{group}\QuickTest"; Filename: "{app}\QuickTest.vbs"; WorkingDir: "{app}";
-;Name: "{group}\Examples"; Filename: "{app}\Examples"; WorkingDir: "{app}";
+Name: "{group}\Examples"; Filename: "{app}\Examples"; WorkingDir: "{app}";
 Name: "{group}\Project Home Page"; Filename: "http://code.google.com/p/net-com-bridge/" ; WorkingDir: "{app}";
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 
@@ -60,4 +60,15 @@ Type: filesandordirs; Name: "{app}"
 
 [UninstallRun]
 Filename:"{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\{reg:HKCR\CLSID\{{61b3e12b-3586-3a58-a497-7ed7c4c794b9%7D\InprocServer32\2.0.0.0,RuntimeVersion}\RegAsm.exe"; Parameters: NetComBridge.dll /unregister /tlb:NetComBridge.tlb; WorkingDir: {app}; StatusMsg: "Unregistering NetComBridge dll"; Flags: runhidden;
+
+[Code]
+Function InitializeSetup() : boolean;
+Begin
+  If RegKeyExists(HKLM,'SOFTWARE\Microsoft\.NETFramework\policy\v2.0') Then Begin
+    Result := True;
+  End Else Begin
+    MsgBox(ExpandConstant('This setup requires the .NET Framework v2.0.'+ CHR(13) + 'Please download and install the .NET Framework v.2'), mbError, MB_OK);
+    Result := False;
+  End;
+End;
 

@@ -67,7 +67,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assembly.cs" />
+    <Compile Include="Compiler.cs" />
     <Compile Include="IAssembly.cs" />
+    <Compile Include="ICompiler.cs" />
     <Compile Include="IInstance.cs" />
     <Compile Include="IMethod.cs" />
     <Compile Include="IBridge.cs" />

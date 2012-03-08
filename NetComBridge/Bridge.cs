@@ -115,6 +115,7 @@ namespace NetComBridge
                     try { 
                        this.cTypes.Add(lTypes[t].FullName, lTypes[t]); 
                     }catch(ApplicationException e){
+                        var ret = e;
                        //System.Console.WriteLine(lTypes[t].FullName);
                     }
                 }

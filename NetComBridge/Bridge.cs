@@ -1,11 +1,33 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NetCom
+namespace NetComBridge
 {
-    /// <summary>
-    /// Class reffering to the bridge
-    /// </summary>
+    /// <summary>Class reffering to the bridge </summary>
+    /// <example>
+    /// 
+    /// This example asks the user to show the current date.
+    /// <code lang="vbs">	
+    /// Dim lBridge, ret
+    /// 
+    /// Set lBridge = CreateObject("NetComBridge.Bridge")
+    /// 
+    /// lBridge.LoadAssembly "System.Windows.Forms", "2.0.0.0", "neutral", "b77a5c561934e089"
+    /// ret=lBridge.Type("System.Windows.Forms.MessageBox").Method("Show").Invok( _
+    /// 	"Do you want to know the current date ? ", _
+    /// 	"NetComBridge Test", _
+    /// 	lBridge.Type("System.Windows.Forms.MessageBoxButtons").Field("YesNo") _
+    /// )
+    /// 
+    /// If ret=lBridge.Type("System.Windows.Forms.DialogResult").Field("Yes") Then
+    /// 	lBridge.Type("System.Windows.Forms.MessageBox").Method("Show").Invok _
+    /// 		lBridge.Type("System.DateTime").Property("Now").Get().Method("ToString").Invok("dddd dd MMMM yyyy"), _
+    /// 		"Current date", _
+    /// 		lBridge.Type("System.Windows.Forms.MessageBoxButtons").Field("OK")
+    /// End If
+    /// </code>
+    /// </example>
+    /// 
     [Guid("d43f6126-5995-4e81-aec9-4b58e66551d9")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComSourceInterfaces(typeof(IEvents))]
@@ -34,15 +56,21 @@ namespace NetCom
             }
         }
 
+        /// <summary>Waits the provided time (millisecond)</summary>
+        /// <param name="pTimeMillisecond"></param>
         public void Wait(int pTimeMillisecond){
             System.Threading.Thread.Sleep(pTimeMillisecond);
         }
 
+        /// <summary>Get/Set the Timeout for asynchronous call</summary>
         public int Timeout{
             get{return this.lTimeout;}
             set{this.lTimeout=value;}
         }
 
+        /// <summary>Get a Type</summary>
+        /// <param name="pFullTypeName"></param>
+        /// <returns></returns>
         public Type Type(string pFullTypeName){
             System.Type lType;
             lType = this.GetLoadedTypeFromString(pFullTypeName);
@@ -53,6 +81,9 @@ namespace NetCom
             }
         }
 
+        /// <summary>Get an assembly by name</summary>
+        /// <param name="pAssemblyName"></param>
+        /// <returns></returns>
         public Assembly Assembly(string pAssemblyName){
             System.Reflection.Assembly lAssembly;
             if (this.cAssemblies.TryGetValue(pAssemblyName, out lAssembly)){
@@ -90,6 +121,9 @@ namespace NetCom
             }
         }
 
+        /// <summary>"Load a dll by path</summary>
+        /// <param name="pDllPath"></param>
+        /// <returns></returns>
         public Assembly LoadLibrary(string pDllPath){
             if (! System.IO.File.Exists(pDllPath)) throw new ApplicationException("Library not found : " + pDllPath);
             System.Reflection.Assembly lAssembly;
@@ -102,6 +136,12 @@ namespace NetCom
             return new Assembly(this, lAssembly);
         }
 
+        /// <summary>Load an assembly from the GAC (C:\WINDOWS\assembly)</summary>
+        /// <param name="pAssemblyName"></param>
+        /// <param name="pVersion"></param>
+        /// <param name="pCulture"></param>
+        /// <param name="pPublicKeyToken"></param>
+        /// <returns></returns>
         public Assembly LoadAssembly(string pAssemblyName, string pVersion, string pCulture, string pPublicKeyToken){
             try{
                 string lName = pAssemblyName + ", Version=" + pVersion + ", Culture=" + pCulture + ", PublicKeyToken=" + pPublicKeyToken;
@@ -117,12 +157,16 @@ namespace NetCom
             }
         }
 
+        /// <summary>Get the list of types</summary>
+        /// <returns></returns>
         public System.String[] GetTypesList(){
             string[] lRet = new string[cTypes.Count];
             cTypes.Keys.CopyTo(lRet, 0);
             return lRet;
         }
 
+        /// <summary>Get the list of assemblies</summary>
+        /// <returns></returns>
         public System.String[] GetAssembliesList(){
             string[] lRet = new string[cAssemblies.Count];
             cAssemblies.Keys.CopyTo(lRet, 0);

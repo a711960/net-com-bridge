@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NetCom
+namespace NetComBridge
 {
     /// <summary>  Class reffering to an assembly's properties </summary>
     [Guid("e5e1eb63-89be-4456-b06c-381a4964b1cb")]
     [ClassInterface(ClassInterfaceType.None)]
-    public class Property : NetCom.IProperty
+    public class Property : NetComBridge.IProperty
     {
         private Bridge lBridge;
         private System.Object lInstance;
@@ -21,6 +21,8 @@ namespace NetCom
             this.lProperty = pProperty;
         }
 
+        /// <summary>Get the property</summary>
+        /// <returns></returns>
         public Instance Get(){
             try{
                 object lValue = lProperty.GetValue(this.lInstance, null);
@@ -30,6 +32,8 @@ namespace NetCom
             }
         }
 
+        /// <summary>Set the property</summary>
+        /// <param name="pArgument"></param>
         public void Set(ref object pArgument){
             try{
                 lProperty.SetValue(this.lInstance, pArgument, null);

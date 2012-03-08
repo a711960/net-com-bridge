@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NetCom
+namespace NetComBridge
 {
     /// <summary>  Class reffering to an assembly </summary>
     [Guid("c8916909-418b-4616-900f-e76e6f7369ac")]
     [ClassInterface(ClassInterfaceType.None)]
-    public class Assembly : NetCom.IAssembly
+    public class Assembly : NetComBridge.IAssembly
     {
         private System.Reflection.Assembly lAssembly=null;
         private Bridge lBridge=null;
 
-        internal Assembly(Bridge netComBridge, System.Reflection.Assembly pAssembly){
-            this.lBridge = netComBridge;
+        internal Assembly(Bridge pBridge, System.Reflection.Assembly pAssembly){
+            this.lBridge = pBridge;
             this.lAssembly = pAssembly;
         }
 
 
         /// <summary>Returns the assembly's location</summary>
-        /// <returns>path of this assembly</returns>
+        /// <returns>Path of the assembly</returns>
         public System.String Location{
             get { return this.lAssembly.Location; }
         }
@@ -37,7 +37,7 @@ namespace NetCom
         }
 
         /// <summary>Returns the assembly's constructors</summary>
-        /// <returns>Returns a string array</returns>
+        /// <returns>String array</returns>
         public System.String[] GetConstrutorsList(){
             int i=0;
             string[] lRet = new string[200];

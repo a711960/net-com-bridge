@@ -1,22 +1,29 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
-namespace NetCom
+namespace NetComBridge
 {
     /// <summary>Interface of the Type class</summary>
     [Guid("d45c8a22-df5c-4152-8169-8eb960027624"),InterfaceType(ComInterfaceType.InterfaceIsDual)]
 	public interface IType
     {
+        [Description("Get a field")]
         Instance Field(string pFieldName);
-        Instance Instantiate0();
-        Instance Instantiate1(object pArgument1);
-        Instance Instantiate2(object pArgument1, object pArgument2);
-        Instance Instantiate3(object pArgument1, object pArgument2, object pArgument3);
-        Instance Instantiate4(object pArgument1, object pArgument2, object pArgument3, object pArgument4);
-        Instance Instantiate5(object pArgument1, object pArgument2, object pArgument3, object pArgument4, object pArgument5);
-        Instance InstantiateM(ref object[] pArguments);
+
+        [Description("Instanciate a class with the provided arguments")]
+        Instance Instantiate([Optional][DefaultParameterValue(null)]object pArgument1, [Optional][DefaultParameterValue(null)]object pArgument2, [Optional][DefaultParameterValue(null)]object pArgument3, [Optional][DefaultParameterValue(null)]object pArgument4, [Optional][DefaultParameterValue(null)]object pArgument5, [Optional][DefaultParameterValue(null)]object pArgument6);
+
+        [Description("Instanciate a class with an arguments array as parameter")]
+        Instance InstantiateT(ref object[] pArguments);
+
+        [Description("Get a static method")]
         Method Method(string pStaticMethodName);
+
+        [Description("Get a property")]
         Property Property(string pPropertyName);
+
+        [Description("Get the list of methods")]
         string[] GetMethodsList();
     }
 }

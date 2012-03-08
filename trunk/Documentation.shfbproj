@@ -19,18 +19,26 @@
     <HtmlHelpName>NetComBridgeApi</HtmlHelpName>
     <Language>en-US</Language>
     <DocumentationSources>
-      <DocumentationSource sourceFile="NetComBridge\bin\Release\NetCom.xml" />
-      <DocumentationSource sourceFile="NetComBridge\bin\Release\NetCom.dll" />
+      <DocumentationSource sourceFile="NetComBridge\bin\Release\NetComBridge.xml" />
+      <DocumentationSource sourceFile="NetComBridge\bin\Release\NetComBridge.dll" />
     </DocumentationSources>
     <VisibleItems>None</VisibleItems>
     <ApiFilter>
-      <Filter entryType="Namespace" fullName="NetComBridgeLib" isExposed="False">
-  <Filter entryType="Class" fullName="NetComBridgeLib.Assembly" filterName="Assembly" isExposed="True" />
-  <Filter entryType="Class" fullName="NetComBridgeLib.Bridge" filterName="Bridge" isExposed="True" />
-  <Filter entryType="Delegate" fullName="NetComBridgeLib.Bridge.EventHandler" filterName="Bridge.EventHandler" isExposed="False" />
-  <Filter entryType="Class" fullName="NetComBridgeLib.Method" filterName="Method" isExposed="True" />
-  <Filter entryType="Class" fullName="NetComBridgeLib.Property" filterName="Property" isExposed="True" />
-  <Filter entryType="Class" fullName="NetComBridgeLib.Type" filterName="Type" isExposed="True" />
+      <Filter entryType="Namespace" fullName="NetComBridge" isExposed="False">
+  <Filter entryType="Class" fullName="NetComBridge.Assembly" filterName="Assembly" isExposed="True" />
+  <Filter entryType="Class" fullName="NetComBridge.Bridge" filterName="Bridge" isExposed="True">
+    <Filter entryType="Field" fullName="NetComBridge.Bridge.lHandleEventMethod" filterName="lHandleEventMethod" isExposed="False" />
+  </Filter>
+  <Filter entryType="Delegate" fullName="NetComBridge.Bridge.EventHandler" filterName="Bridge.EventHandler" isExposed="True" />
+  <Filter entryType="Class" fullName="NetComBridge.Instance" filterName="Instance" isExposed="True">
+    <Filter entryType="Field" fullName="NetComBridge.Instance.lErrorMessage" filterName="lErrorMessage" isExposed="False" />
+    <Filter entryType="Field" fullName="NetComBridge.Instance.lInstance" filterName="lInstance" isExposed="False" />
+    <Filter entryType="Field" fullName="NetComBridge.Instance.lIsReady" filterName="lIsReady" isExposed="False" />
+    <Filter entryType="Field" fullName="NetComBridge.Instance.lType" filterName="lType" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="NetComBridge.Method" filterName="Method" isExposed="True" />
+  <Filter entryType="Class" fullName="NetComBridge.Property" filterName="Property" isExposed="True" />
+  <Filter entryType="Class" fullName="NetComBridge.Type" filterName="Type" isExposed="True" />
 </Filter>
     </ApiFilter>
     <FrameworkVersion>.NET 3.5</FrameworkVersion>

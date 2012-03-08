@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
-namespace NetCom
+namespace NetComBridge
 {
     /// <summary>Interface of the Method class</summary>
     [Guid("37e0c8ce-1d23-492f-995c-2329125a8b8c"),InterfaceType(ComInterfaceType.InterfaceIsDual)]
     public interface IMethod
     {
-        Instance Invoke0();
-        Instance Invoke1(object pArgument1);
-        Instance Invoke2(object pArgument1, object pArgument2);
-        Instance Invoke3(object pArgument1, object pArgument2, object pArgument3);
-        Instance Invoke4(object pArgument1, object pArgument2, object pArgument3, object pArgument4);
-        Instance Invoke5(object pArgument1, object pArgument2, object pArgument3, object pArgument4, object pArgument5);
-        Instance InvokeM(ref object[] pArguments);
-        Instance InvokeAsynchrone(ref object[] pArguments);
+        [Description("Invoke the method and wait the end of execution")]
+        Instance Invok([Optional][DefaultParameterValue(null)]object pArgument1, [Optional][DefaultParameterValue(null)]object pArgument2, [Optional][DefaultParameterValue(null)]object pArgument3, [Optional][DefaultParameterValue(null)]object pArgument4, [Optional][DefaultParameterValue(null)]object pArgument5, [Optional][DefaultParameterValue(null)]object pArgument6);
+
+        [Description("Same as \"Invok\" but with an arguments array as parameter")]
+        Instance InvokT(ref object[] pArguments);
+
+        [Description("Invoke the method but don't wait the end of execution")]
+        Instance InvokAsync([Optional][DefaultParameterValue(null)]object pArgument1, [Optional][DefaultParameterValue(null)]object pArgument2, [Optional][DefaultParameterValue(null)]object pArgument3, [Optional][DefaultParameterValue(null)]object pArgument4, [Optional][DefaultParameterValue(null)]object pArgument5, [Optional][DefaultParameterValue(null)]object pArgument6);
+
+        [Description("Same as \"InvokAsync\" but with an arguments array as parameter")]
+        Instance InvokAsyncT(ref object[] pArguments);
     }
 }

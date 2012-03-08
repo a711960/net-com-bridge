@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NetCom
+namespace NetComBridge
 {
     /// <summary>
     /// Class reffering to methods
@@ -25,8 +25,8 @@ namespace NetCom
         System.Timers.Timer timerhotkey;
 
 
-        internal Method(Bridge netComBridge, System.Object pInstance, System.Type pType, System.String pMethodName){
-            this.lBridge = netComBridge;
+        internal Method(Bridge pBridge, System.Object pInstance, System.Type pType, System.String pMethodName){
+            this.lBridge = pBridge;
             this.lInstance = pInstance;
             this.lType = pType;
             this.lMethodName = pMethodName;
@@ -41,44 +41,87 @@ namespace NetCom
             }
         }
 
-        public Instance Invoke0(){
-            return this.InvokeSynchrone();
+        /// <summary>Invoke the method and wait the end of execution</summary>
+        /// <param name="pArgument1"></param>
+        /// <param name="pArgument2"></param>
+        /// <param name="pArgument3"></param>
+        /// <param name="pArgument4"></param>
+        /// <param name="pArgument5"></param>
+        /// <param name="pArgument6"></param>
+        /// <returns></returns>
+        public Instance Invok([Optional][DefaultParameterValue(null)]object pArgument1, [Optional][DefaultParameterValue(null)]object pArgument2, 
+            [Optional][DefaultParameterValue(null)]object pArgument3, [Optional][DefaultParameterValue(null)]object pArgument4,
+            [Optional][DefaultParameterValue(null)]object pArgument5, [Optional][DefaultParameterValue(null)]object pArgument6){
+
+            if(object.Equals(pArgument1,null)){
+                return this.InvokeSynchroneParams();
+            }else if (object.Equals(pArgument2, null)){
+                return this.InvokeSynchroneParams(pArgument1);
+            }else if (object.Equals(pArgument3, null)){
+                return this.InvokeSynchroneParams(pArgument1, pArgument2);
+            }else if (object.Equals(pArgument4, null)){
+                return this.InvokeSynchroneParams(pArgument1, pArgument2, pArgument3);
+            }else if (object.Equals(pArgument5, null)){
+                return this.InvokeSynchroneParams(pArgument1, pArgument2, pArgument3, pArgument4);
+            }else if (object.Equals(pArgument6, null)){
+                return this.InvokeSynchroneParams(pArgument1, pArgument2, pArgument3, pArgument4, pArgument5);
+            }else{
+                return this.InvokeSynchroneParams(pArgument1, pArgument2, pArgument3, pArgument4, pArgument5, pArgument6);
+            }
         }
 
-        public Instance Invoke1(object pArgument1){
-            return this.InvokeSynchrone(pArgument1);
+        /// <summary>Invoke the method but don't wait the end of execution</summary>
+        /// <param name="pArgument1"></param>
+        /// <param name="pArgument2"></param>
+        /// <param name="pArgument3"></param>
+        /// <param name="pArgument4"></param>
+        /// <param name="pArgument5"></param>
+        /// <param name="pArgument6"></param>
+        /// <returns></returns>
+        public Instance InvokAsync([Optional][DefaultParameterValue(null)]object pArgument1, [Optional][DefaultParameterValue(null)]object pArgument2, 
+            [Optional][DefaultParameterValue(null)]object pArgument3, [Optional][DefaultParameterValue(null)]object pArgument4,
+            [Optional][DefaultParameterValue(null)]object pArgument5, [Optional][DefaultParameterValue(null)]object pArgument6){
+
+            if(object.Equals(pArgument1,null)){
+                return this.InvokeAsynchroneParams();
+            }else if (object.Equals(pArgument2, null)){
+                return this.InvokeAsynchroneParams(pArgument1);
+            }else if (object.Equals(pArgument3, null)){
+                return this.InvokeAsynchroneParams(pArgument1, pArgument2);
+            }else if (object.Equals(pArgument4, null)){
+                return this.InvokeAsynchroneParams(pArgument1, pArgument2, pArgument3);
+            }else if (object.Equals(pArgument5, null)){
+                return this.InvokeAsynchroneParams(pArgument1, pArgument2, pArgument3, pArgument4);
+            }else if (object.Equals(pArgument6, null)){
+                return this.InvokeAsynchroneParams(pArgument1, pArgument2, pArgument3, pArgument4, pArgument5);
+            }else{
+                return this.InvokeAsynchroneParams(pArgument1, pArgument2, pArgument3, pArgument4, pArgument5, pArgument6);
+            }
         }
 
-        public Instance Invoke2(object pArgument1, object pArgument2){
-            return this.InvokeSynchrone(pArgument1, pArgument2);
-        }
-
-        public Instance Invoke3(object pArgument1, object pArgument2, object pArgument3){
-            return this.InvokeSynchrone(pArgument1, pArgument2, pArgument3);
-        }
-
-        public Instance Invoke4(object pArgument1, object pArgument2, object pArgument3, object pArgument4){
-            return this.InvokeSynchrone(pArgument1, pArgument2, pArgument3, pArgument4);
-        }
-
-        public Instance Invoke5(object pArgument1, object pArgument2, object pArgument3, object pArgument4, object pArgument5){
-            return this.InvokeSynchrone(pArgument1, pArgument2, pArgument3, pArgument4, pArgument5);
-        }
-
-
-        public Instance InvokeM(ref object[] pArguments){
+        /// <summary>Same as "Invok" but with an arguments array as parameter</summary>
+        /// <param name="pArguments"></param>
+        /// <returns></returns>
+        public Instance InvokT(ref object[] pArguments){
             return this.InvokeMethod(ref pArguments, true);
         }
 
-        public Instance InvokeSynchrone(params object[] pArguments){
-            return this.InvokeMethod(ref pArguments, true);
-        }
-
-        public Instance InvokeAsynchrone(ref object[] pArguments){
+        /// <summary>Same as "InvokAsync" but with an arguments array as parameter</summary>
+        /// <param name="pArguments"></param>
+        /// <returns></returns>
+        public Instance InvokAsyncT(ref object[] pArguments){
             return this.InvokeMethod(ref pArguments, false);
         }
 
-        public Instance InvokeMethod(ref object[] pArguments, bool pSynchrone){
+        private Instance InvokeSynchroneParams(params object[] pArguments){
+            return this.InvokeMethod(ref pArguments, true);
+        }
+
+        private Instance InvokeAsynchroneParams(params object[] pArguments){
+            return this.InvokeMethod(ref pArguments, false);
+        }
+
+        private Instance InvokeMethod(ref object[] pArguments, bool pSynchrone){
             //Convert Generic Instance types to real types
             System.Type[] lTypes = new System.Type[pArguments.Length];
             lArguments = new object[pArguments.Length];

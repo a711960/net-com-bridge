@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace NetComBridge
 {
     /// <summary>  Class reffering to an assembly </summary>
-    [Guid("c8916909-418b-4616-900f-e76e6f7369ac")]
-    [ClassInterface(ClassInterfaceType.None)]
+    [Description("Class reffering to an assembly"), ProgId("NetComBridge.Assembly")]
+    [Guid("c8916909-418b-4616-900f-e76e6f7369ac"), ComVisible(true), ClassInterface(ClassInterfaceType.None)]
     public class Assembly : NetComBridge.IAssembly
     {
         private System.Reflection.Assembly lAssembly=null;

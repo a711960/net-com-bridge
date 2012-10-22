@@ -2,13 +2,14 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "NetComBridge"
-#define MyAppVersion GetFileVersion(".\NetComBridge\bin\Release\NetComBridge.dll")
+#define MyAppVersion GetFileVersion(".\Source\bin\Release\NetComBridge.dll")
 #define MyAppPublisher "Florent BREHERET"
 #define MyAppURL "http://code.google.com/p/net-com-bridge/"
-#define MyVersion() ParseVersion(".\NetComBridge\bin\Release\NetComBridge.dll", Local[0], Local[1], Local[2], Local[3]), Str(Local[0]) + "." + Str(Local[1]) + "." + Str(Local[2]);
+#define MyVersion() ParseVersion(".\Source\bin\Release\NetComBridge.dll", Local[0], Local[1], Local[2], Local[3]), Str(Local[0]) + "." + Str(Local[1]) + "." + Str(Local[2]);
 
 [Setup]
-AppId={{9E85CFED-63CA-4F45-AA81-2B49D69C7642}}
+AppId={#MyAppName}
+PrivilegesRequired=poweruser
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -21,7 +22,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=.\NetComBridge\bin\Release\License.txt
+LicenseFile=.\Source\License.txt
 ;InfoBeforeFile=.\ClassLibrary1\bin\Release\Info.txt
 OutputDir="."
 OutputBaseFilename=NetComBridgeSetup-{#MyVersion()}
@@ -32,13 +33,20 @@ SolidCompression=yes
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: ".\NetComBridge\bin\Release\NetComBridge.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\NetComBridge\bin\Release\License.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\NetComBridge\bin\Release\Readme.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\isxdl.dll"; DestDir: {tmp}; Flags: deleteafterinstall
+Source: ".\Source\bin\Release\NetComBridge.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\Source\bin\Release\License.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\Source\bin\Release\Readme.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\NetComBridgeApi.chm"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\QuickTest.vbs"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\Examples\*.xls"; DestDir: "{app}\Examples"; Flags: ignoreversion skipifsourcedoesntexist
 Source: ".\Examples\*.vbs"; DestDir: "{app}\Examples"; Flags: ignoreversion skipifsourcedoesntexist
+Source: ".\exe.config" ; DestDir: "{win}\SYSTEM32"; DestName: "wscript.exe.config"; Flags: ignoreversion uninsneveruninstall
+Source: ".\exe.config" ; DestDir: "{code:GetAppFolder|Excel.Application}"; DestName: "excel.exe.config"; Flags: ignoreversion uninsneveruninstall
+Source: ".\exe.config" ; DestDir: "{code:GetAppFolder|Word.Application}"; DestName: "winword.exe.config"; Flags: ignoreversion uninsneveruninstall
+Source: ".\exe.config" ; DestDir: "{code:GetAppFolder|PowerPoint.Application}"; DestName: "powerpnt.exe.config"; Flags: ignoreversion uninsneveruninstall
+Source: ".\exe.config" ; DestDir: "{code:GetAppFolder|Access.Application}"; DestName: "msaccess.exe.config"; Flags: ignoreversion uninsneveruninstall
+Source: ".\exe.config" ; DestDir: "{code:GetAppFolder|Outlook.Application}"; DestName: "outlook.exe.config"; Flags: ignoreversion uninsneveruninstall
 
 [Icons]
 ;Name: "{group}\Readme"; Filename: "{app}\Readme.txt"; WorkingDir: "{app}";
@@ -49,19 +57,148 @@ Name: "{group}\Project Home Page"; Filename: "http://code.google.com/p/net-com-b
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 
 [Registry]
+;clean com objects in the registry
+Root: HKCR; Subkey: "{{2B7C45C0-8CB3-454C-977A-7A4ADC0126CF}"; Flags: deletekey uninsdeletekey
+Root: HKCR; Subkey: "NetComBridge.AssemblyInfo"; Flags: deletekey uninsdeletekey
+Root: HKCR; Subkey: "{{0C0347D4-6F6D-4ECB-A38F-3FDB1F18FAD2}"; Flags: deletekey uninsdeletekey
+Root: HKCR; Subkey: "NetComBridge.Bridge"; Flags: deletekey uninsdeletekey
+Root: HKCR; Subkey: "{{D43F6126-5995-4E81-AEC9-4B58E66551D9}"; Flags: deletekey uninsdeletekey
+Root: HKCR; Subkey: "NetComBridge.Compiler"; Flags: deletekey uninsdeletekey
+Root: HKCR; Subkey: "{{00CEE59E-6A4B-4CF2-8AD3-E6261759CA24}"; Flags: deletekey uninsdeletekey
+Root: HKCR; Subkey: "{{252E805C-7090-3DEB-ACF6-E81674ABC488}"; Flags: deletekey uninsdeletekey
+Root: HKCR; Subkey: "{{813CBC0F-3E3B-3566-8404-1623214DE3E2}"; Flags: deletekey uninsdeletekey
+Root: HKCR; Subkey: "{{C7F188D8-7C96-3607-840F-D86639B7B544}"; Flags: deletekey uninsdeletekey
+Root: HKCR; Subkey: "{{D43F6126-5995-4E81-AEC9-4B58E66551D9}"; Flags: deletekey uninsdeletekey
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\.NETFramework\Policy\AppPatch\v2.0.50727.00000\excel.exe\{{2CCAA9FE-6884-4AF2-99DD-5217B94115DF}}"; ValueType: string; ValueName: "Target Version"; ValueData: "v2.0.50727"
 
 [Run]
-Filename:"{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\{reg:HKCR\CLSID\{{61b3e12b-3586-3a58-a497-7ed7c4c794b9%7D\InprocServer32\2.0.0.0,RuntimeVersion}\RegAsm.exe"; Parameters: NetComBridge.dll /unregister /tlb:NetComBridge.tlb; WorkingDir: {app}; StatusMsg: "Registering NetComBridge dll"; Flags: runhidden;
-Filename:"{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\{reg:HKCR\CLSID\{{61b3e12b-3586-3a58-a497-7ed7c4c794b9%7D\InprocServer32\2.0.0.0,RuntimeVersion}\RegAsm.exe"; Parameters: NetComBridge.dll /tlb:NetComBridge.tlb  /codebase;WorkingDir: {app}; StatusMsg: "Registering NetComBridge dll"; Flags: runhidden;
+Filename: "{dotnet2064}\RegAsm.exe"; Parameters: {#MyAppName}.dll /codebase /tlb:{#MyAppName}.tlb; WorkingDir: {app}; StatusMsg: "Registering {#MyAppName} dll"; Flags: runhidden; Check: IsWin64;
+Filename: "{dotnet2032}\RegAsm.exe"; Parameters: {#MyAppName}.dll /codebase /tlb:{#MyAppName}.tlb; WorkingDir: {app}; StatusMsg: "Registering {#MyAppName} dll"; Flags: runhidden;
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"
 
 [UninstallRun]
-Filename:"{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\{reg:HKCR\CLSID\{{61b3e12b-3586-3a58-a497-7ed7c4c794b9%7D\InprocServer32\2.0.0.0,RuntimeVersion}\RegAsm.exe"; Parameters: NetComBridge.dll /unregister /tlb:NetComBridge.tlb; WorkingDir: {app}; StatusMsg: "Unregistering NetComBridge dll"; Flags: runhidden;
+Filename: "{dotnet2064}\RegAsm.exe"; Parameters: {#MyAppName}.dll /unregister /tlb:{#MyAppName}.tlb; WorkingDir: {app}; StatusMsg: "Unregistering {#MyAppName} dll"; Flags: runhidden; Check: IsWin64;
+Filename: "{dotnet2032}\RegAsm.exe"; Parameters: {#MyAppName}.dll /unregister /tlb:{#MyAppName}.tlb; WorkingDir: {app}; StatusMsg: "Unregistering {#MyAppName} dll"; Flags: runhidden;
 
 [Code]
+
+function GetAppFolder(app: String): string;
+  var clsid: String; server: String; ret: String; succeed: boolean;
+  Begin
+    succeed:= RegQueryStringValue(HKCR32, app + '\CLSID', '', clsid);
+    if not succeed then succeed:= RegQueryStringValue(HKCR, app + '\CLSID', '', clsid);
+    if succeed then Begin
+        succeed:= RegQueryStringValue(HKCR32, 'CLSID\' + clsid + '\LocalServer32', '', server);
+        if not succeed then succeed:= RegQueryStringValue(HKCR, 'CLSID\' + clsid + '\LocalServer32', '', server);
+        if succeed then Begin
+          ret := Copy( server , 0, Pos('.EXE', server ) + 3 );
+          ret:= ExtractFileDir(ret);
+          Result := ret ;
+        end;
+    end;
+  end;
+
+//---------------------------------------------------------------------------------------
+// Download and install an exe
+//---------------------------------------------------------------------------------------
+procedure isxdl_AddFile(URL, Filename: PChar);
+external 'isxdl_AddFile@files:isxdl.dll stdcall';
+function isxdl_DownloadFiles(hWnd: Integer): Integer;
+external 'isxdl_DownloadFiles@files:isxdl.dll stdcall';
+function isxdl_SetOption(Option, Value: PChar): Integer;
+external 'isxdl_SetOption@files:isxdl.dll stdcall';
+
+function InstallSoftware( url: string; file: string; arguments: string; info: string; description: string ): Boolean;
+  var dotnetRedistPath: string; hWnd: Integer; ResultCode: Integer; 
+  begin
+    dotnetRedistPath := ExpandConstant('{tmp}\' + file);
+    if not FileExists(dotnetRedistPath) then begin
+      isxdl_AddFile(url, dotnetRedistPath);
+      hWnd := StrToInt(ExpandConstant('{wizardhwnd}'));
+      isxdl_SetOption('label', info);
+      isxdl_SetOption('description', description);
+      if isxdl_DownloadFiles(hWnd) <> 0 then begin
+        if Exec(ExpandConstant(dotnetRedistPath), arguments, '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then begin
+           result := (ResultCode = 0);
+        end;
+      end;
+    end;
+  end;
+
+//---------------------------------------------------------------------------------------
+// NET Framework Installation
+//---------------------------------------------------------------------------------------
+const dotnetRedistURLx64 = 'http://download.microsoft.com/download/c/6/e/c6e88215-0178-4c6c-b5f3-158ff77b1f38/NetFx20SP2_x64.exe';
+const dotnetRedistURLx86 = 'http://download.microsoft.com/download/c/6/e/c6e88215-0178-4c6c-b5f3-158ff77b1f38/NetFx20SP2_x86.exe';
+
+function InstallNetFramework(checkOnly : boolean) : Boolean;
+  var dotnetRedistPath: string; hWnd: Integer; ResultCode: Integer; 
+  begin
+    result := not (RegKeyExists(HKLM,'SOFTWARE\Microsoft\NET Framework Setup\NDP\v2.0.50727') Or RegKeyExists(HKLM,'SOFTWARE\Wow6432Node\Microsoft\NET Framework Setup\NDP\v2.0.50727'));
+    if result and (not checkOnly) then begin 
+      if (not IsAdminLoggedOn()) then begin
+        MsgBox('Microsoft .NET Framework 2.0 needs to be installed by an Administrator', mbInformation, MB_OK);
+      end else begin
+         if IsWin64() then begin
+            result:= InstallSoftware( dotnetRedistURLx64, 'NetFx20SP2_x64.exe', '', 'Downloading Microsoft .NET Framework 2.0', 'Please wait while Setup is downloading extra files to your computer.') = false;
+         end else begin
+            result:= InstallSoftware( dotnetRedistURLx86, 'NetFx20SP2_x86.exe', '', 'Downloading Microsoft .NET Framework 2.0', 'Please wait while Setup is downloading extra files to your computer.') = false;
+         end;
+      end
+      if InstallNetFramework(true) then begin
+        MsgBox(ExpandConstant('Failed to install Microsoft .NET Framework 2.0 Service Pack 2 !  '#13'Please download and install it to continue the installaton'), mbError, MB_OK);
+        ShellExec('open', 'http://www.microsoft.com/en-us/download/details.aspx?id=1639','', '', SW_SHOW, ewNoWait, ResultCode);
+        result:= true;
+      end
+    end;
+  end;
+
+//---------------------------------------------------------------------------------------
+// Uninstall previous version
+//---------------------------------------------------------------------------------------
+function UnInstallPrevious(checkOnly: boolean): boolean;
+  var sUnInstallString: String; iResultCode: Integer;
+  begin
+    result:= RegQueryStringValue(HKLM, ExpandConstant('SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}_is1'), 'UnInstallString', sUnInstallString);
+    if not result then result:= RegQueryStringValue(HKLM, ExpandConstant('SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{#MyAppName}_is1'), 'UnInstallString', sUnInstallString);
+    if result and not checkOnly then Begin
+        Exec( RemoveQuotes(sUnInstallString), '/SILENT', '', SW_SHOW, ewWaitUntilTerminated, iResultCode) ;
+        //if iResultCode <> 0 then Abort();
+        Sleep(1000);
+    end;
+  end;
+
+//---------------------------------------------------------------------------------------
+// Check the program is not used before uninstallation
+//---------------------------------------------------------------------------------------
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+var
+  sInstallLib: String;
+begin
+  if CurUninstallStep = usUninstall  then begin
+     sInstallLib := ExpandConstant('{app}\{#MyAppName}.tlb' );
+     if FileExists( sInstallLib ) then begin
+       If Not RenameFile( sInstallLib, sInstallLib ) then RaiseException(ExpandConstant('Uninstallation of {#MyAppName} is not possible as a program is currently using it.'#13'Close all Office applications or restart Windows and try again.'));
+     end;
+  end;
+end;
+
+//---------------------------------------------------------------------------------------
+// Check the installed application
+//---------------------------------------------------------------------------------------
+procedure TestInstallation();
+var obj: Variant;
+begin
+    try
+      obj := CreateOleObject(ExpandConstant('{#MyAppName}.AssemblyInfo'));
+      obj.GetVersion();
+    except
+      RaiseException( 'Instalation tests failed ! '#13'Error : ' + GetExceptionMessage );
+    end;
+end;
+
 Function InitializeSetup() : boolean;
 Begin
   If RegKeyExists(HKLM,'SOFTWARE\Microsoft\.NETFramework\policy\v2.0') Then Begin
@@ -72,3 +209,17 @@ Begin
   End;
 End;
 
+//---------------------------------------------------------------------------------------
+// Uninstall previous version and install additional applications
+//---------------------------------------------------------------------------------------
+procedure CurStepChanged(CurStep: TSetupStep);
+  begin
+    if CurStep = ssInstall  then begin
+      UnInstallPrevious(false);
+      if InstallNetFramework(false) then Abort();
+    end else if CurStep = ssDone then begin
+
+    end Else If CurStep = ssPostInstall then begin
+      TestInstallation();
+    end;
+  end;

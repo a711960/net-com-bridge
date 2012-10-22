@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace NetComBridge
 {
     /// <summary>Interface of the Instance class</summary>
-    [Guid("af9a9a70-672f-4e8b-b52a-bee5f9d11b0b"),InterfaceType(ComInterfaceType.InterfaceIsDual)]
+    [Guid("af9a9a70-672f-4e8b-b52a-bee5f9d11b0b"), ComVisible(true)]
     public interface IInstance
     {
         [Description("Convert an object to another type")]

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace NetComBridge
 {
-    /// <summary>  Class reffering to an assembly's properties </summary>
-    [Guid("e5e1eb63-89be-4456-b06c-381a4964b1cb")]
-    [ClassInterface(ClassInterfaceType.None)]
+    /// <summary>Class reffering to an assembly's properties </summary>
+    [Description("Class reffering to an assembly's properties"), ProgId("NetComBridge.Property")]
+    [Guid("e5e1eb63-89be-4456-b06c-381a4964b1cb"), ComVisible(true), ClassInterface(ClassInterfaceType.None)]
     public class Property : NetComBridge.IProperty
     {
         private Bridge lBridge;

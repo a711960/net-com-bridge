@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.ComponentModel;
 
 namespace NetComBridge
 {
@@ -27,8 +28,8 @@ namespace NetComBridge
     /// </example>
     /// 
 
-    [Guid("00CEE59E-6A4B-4cf2-8AD3-E6261759CA24")]
-    [ClassInterface(ClassInterfaceType.None)]
+    [Description("Class to compile CSharp code and return an Assembly Type"), ProgId("NetComBridge.Compiler")]
+    [Guid("00CEE59E-6A4B-4cf2-8AD3-E6261759CA24"), ComVisible(true), ClassInterface(ClassInterfaceType.None)]
     public class Compiler : ICompiler
     {
         private System.CodeDom.Compiler.CodeDomProvider provider;

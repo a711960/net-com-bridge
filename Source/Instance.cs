@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace NetComBridge
 {
     /// <summary>
     /// Class representing an instance of class
     /// </summary>
-    [Guid("2a01432c-8b2f-480b-b18c-3bd62ed488f0")]
-    [ClassInterface(ClassInterfaceType.None)]
+    [Description("Class representing an instance of class"), ProgId("NetComBridge.Instance")]
+    [Guid("2a01432c-8b2f-480b-b18c-3bd62ed488f0"), ComVisible(true), ClassInterface(ClassInterfaceType.None)]
     public class Instance : IInstance
     {
         private Bridge lBridge;

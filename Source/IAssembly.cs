@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace NetComBridge
 {
     /// <summary>Interface of the Assembly class</summary>
-    [Guid("e69f585d-259c-4219-bfe8-fc78f6a12b61"),InterfaceType(ComInterfaceType.InterfaceIsDual)]
+    [Guid("e69f585d-259c-4219-bfe8-fc78f6a12b61"), ComVisible(true)]
     public interface IAssembly
     {
         [Description("Returns a list of constructors")]

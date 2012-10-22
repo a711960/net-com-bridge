@@ -12,8 +12,8 @@ mode con cols=120 lines=60
 
 $Project_name = "SeleniumNetComBridge"
 $Project_dir = [System.IO.Directory]::GetCurrentDirectory() + "\"
-$CurrentVersion_path = $Project_dir + "NetComBridge\Properties\AssemblyInfo.cs"
-$csproj_path = $Project_dir + "NetComBridge\NetComBridge.csproj"
+$CurrentVersion_path = $Project_dir + "Source\Properties\AssemblyInfo.cs"
+$csproj_path = $Project_dir + "Source\NetComBridge.csproj"
 $iss_path = $Project_dir + "Package.iss"
 $shfbproj_path = $Project_dir + "Documentation.shfbproj"
 
@@ -50,6 +50,9 @@ function getSha1($filepath){
     return $sha1
 }
 
+function pause(){
+	$ret = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") 
+}
 
 function writeErr($texte){
     write-host($texte) -ForegroundColor red; break;
@@ -90,17 +93,19 @@ write-host "   ** Update the version in AssemblyInfo.cs ..."
 write-host ""
 write-host "   ** Msbuild compile sources ..."
 	cmd-msbuild /v:quiet /p:Configuration=Release /p:TargetFrameworkVersion=v3.5 /p:SignAssembly=true $csproj_path
-    if($LASTEXITCODE -eq 1) { writeErr("  Source compilation failed ! "); break; }
+    if($LASTEXITCODE -eq 1) { writeErr("  Source compilation failed ! "); pause ; break; }
 
 write-host ""
 write-host "   ** Api documentation creation ..."
-	cmd-msbuild /v:quiet /p:CleanIntermediates=True /p:Configuration=Release $shfbproj_path
-    if($LASTEXITCODE -eq 1) { writeErr("  Api documentation creation failed ! ") ; break; }
-	
+	$ask_compil=(read-host "   Create the .chm help file ? [y/n] ")
+	if ($ask_compil -eq "y"){
+		cmd-msbuild /v:quiet /p:CleanIntermediates=True /p:Configuration=Release $shfbproj_path
+		if($LASTEXITCODE -eq 1) { writeErr("  Api documentation creation failed ! ") ; pause ; break; }
+	}
 write-host ""
 write-host "   ** InnoSetup create the paclage ..."
 	cmd-iscc /q $iss_path
-    if($LASTEXITCODE -eq 1) { writeErr("  Package creation failed ! "); break; }
+    if($LASTEXITCODE -eq 1) { writeErr("  Package creation failed ! "); pause ; break; }
     
 write-host ""
 write-host "   ** Package installaton ..."

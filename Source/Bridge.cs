@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace NetComBridge
 {
@@ -28,26 +30,61 @@ namespace NetComBridge
     /// </code>
     /// </example>
     /// 
-    [Guid("d43f6126-5995-4e81-aec9-4b58e66551d9")]
-    [ClassInterface(ClassInterfaceType.None)]
-    [ComSourceInterfaces(typeof(IEvents))]
+
+    [Description("Class to instanciate and use object members"), ProgId("NetComBridge.Bridge")]
+    [Guid("d43f6126-5995-4e81-aec9-4b58e66551d9"), ComVisible(true), ClassInterface(ClassInterfaceType.None), ComSourceInterfaces(typeof(IEvents))]
     public class Bridge :  IBridge
     {
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        internal static extern short GetKeyState(int virtualKeyCode);
+
         System.Collections.Generic.Dictionary<string, System.Type> cTypes;
         System.Collections.Generic.Dictionary<string, System.Reflection.Assembly> cAssemblies;
         System.AppDomain lDomain;
         int lTimeout;
+        internal System.Timers.Timer timerhotkey;
+        internal System.Threading.Thread thread;
 
         [ComVisible(false)]
         public delegate void EventHandler(String name, Object sender, Object arguments); 
         public System.Reflection.MethodInfo lHandleEventMethod;
         public event EventHandler Event;
+        internal string lerror;
 
         public Bridge(){
             this.lDomain = System.AppDomain.CurrentDomain;
             this.LoadTypes();
             this.lTimeout = 30000;
             lHandleEventMethod = this.GetType().GetMethod("HandleEvent");
+            this.timerhotkey = new System.Timers.Timer(100);
+            this.timerhotkey.Elapsed += new System.Timers.ElapsedEventHandler(TimerCheckHotKey);
+            AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
+            System.Windows.Forms.Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+
+        }
+                
+        internal void AppDomain_UnhandledException(Object sender, UnhandledExceptionEventArgs e){
+            this.lerror = ((Exception)e.ExceptionObject).InnerException.Message;
+            this.thread.Abort();
+            this.timerhotkey.Stop();
+            System.Threading.Thread.CurrentThread.Join();
+        }
+
+
+        internal void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            this.lerror = e.Exception.Message;
+            this.thread.Abort();
+            this.timerhotkey.Stop();
+            System.Threading.Thread.CurrentThread.Join();
+        }
+
+        internal void TimerCheckHotKey(object source, System.Timers.ElapsedEventArgs e){
+            if ((GetKeyState(0x1b) & 0x8000) != 0) {
+                this.timerhotkey.Stop();
+                this.thread.Abort();
+            }
         }
 
         internal void HandleEvent(Object sender, EventArgs e){

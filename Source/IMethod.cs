@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace NetComBridge
 {
     /// <summary>Interface of the Method class</summary>
-    [Guid("37e0c8ce-1d23-492f-995c-2329125a8b8c"),InterfaceType(ComInterfaceType.InterfaceIsDual)]
+    [Guid("37e0c8ce-1d23-492f-995c-2329125a8b8c"), ComVisible(true)]
     public interface IMethod
     {
         [Description("Invoke the method and wait the end of execution")]

@@ -19,8 +19,8 @@
     <HtmlHelpName>NetComBridgeApi</HtmlHelpName>
     <Language>en-US</Language>
     <DocumentationSources>
-      <DocumentationSource sourceFile="NetComBridge\bin\Release\NetComBridge.xml" />
-      <DocumentationSource sourceFile="NetComBridge\bin\Release\NetComBridge.dll" />
+      <DocumentationSource sourceFile="Source\bin\Release\NetComBridge.xml" />
+      <DocumentationSource sourceFile="Source\bin\Release\NetComBridge.dll" />
     </DocumentationSources>
     <VisibleItems>None</VisibleItems>
     <ApiFilter>

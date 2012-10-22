@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace NetComBridge
 {
     [Guid("ed5392cc-fdfb-4cb9-8370-4f4487c18b76")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
+    [ComVisible(true)]
     public interface IEvents
     {
         [Description("Events subscribed with \"instance.SubscribeEvent( pEventName ) \" are raised here")]
@@ -13,7 +13,7 @@ namespace NetComBridge
     }
 
     /// <summary>Interface of the NetComBridge class</summary>
-    [Guid("268c5c67-5f85-498b-a2b1-9fff86495cce"),InterfaceType(ComInterfaceType.InterfaceIsDual)]
+    [Guid("268c5c67-5f85-498b-a2b1-9fff86495cce"), ComVisible(true)]
     public interface IBridge
     {
         [Description("Get an assembly by name")]

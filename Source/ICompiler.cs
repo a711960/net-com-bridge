@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace NetComBridge
 {
-    [Guid("F7FEE81B-DCC7-4f7c-9549-80704E92F062"),InterfaceType(ComInterfaceType.InterfaceIsDual)]
+    [Guid("F7FEE81B-DCC7-4f7c-9549-80704E92F062"), ComVisible(true)]
     public interface ICompiler
     {
         [Description("Add a reference library for the compilation.")]

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace NetComBridge
 {
     /// <summary>
     /// Class reffering to methods
     /// </summary>
-    [Guid("68db4aaa-ff84-46f9-84f2-b4dc21a00a44")]
-    [ClassInterface(ClassInterfaceType.None)]
+    [Description("Class reffering to methods"), ProgId("NetComBridge.Method")]
+    [Guid("68db4aaa-ff84-46f9-84f2-b4dc21a00a44"), ComVisible(true), ClassInterface(ClassInterfaceType.None)]
     public class Method : IMethod
     {
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        internal static extern short GetKeyState(int virtualKeyCode);
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
 
         private Bridge lBridge;
         private System.Type lType;
@@ -21,24 +22,12 @@ namespace NetComBridge
         private object[] lArguments;
         private System.Reflection.MethodInfo lMethod;
         private Instance lReturnInstance;
-        System.Threading.Thread thread;
-        System.Timers.Timer timerhotkey;
-
 
         internal Method(Bridge pBridge, System.Object pInstance, System.Type pType, System.String pMethodName){
             this.lBridge = pBridge;
             this.lInstance = pInstance;
             this.lType = pType;
             this.lMethodName = pMethodName;
-            this.timerhotkey = new System.Timers.Timer(100);
-            this.timerhotkey.Elapsed += new System.Timers.ElapsedEventHandler(TimerCheckHotKey);
-        }
-
-        private void TimerCheckHotKey(object source, System.Timers.ElapsedEventArgs e){
-            if ((GetKeyState(0x1b) & 0x8000) != 0) {
-                this.timerhotkey.Stop();
-                this.thread.Abort();
-            }
         }
 
         /// <summary>Invoke the method and wait the end of execution</summary>
@@ -147,33 +136,32 @@ namespace NetComBridge
             if(lMethod.IsStatic==false && lInstance==null) throw new ApplicationException("Can't invoke method <" + this.lMethodName + ">. Type <" + lType.FullName + "> is not instantiated ");
             //Invoke method
             this.lReturnInstance = new Instance(this.lBridge);
-            this.thread = new System.Threading.Thread(new System.Threading.ThreadStart(InvokeProc));
-            this.thread.Start();
-
-            this.timerhotkey.Start();
+            this.lReturnInstance.lErrorMessage = null;
+            this.lBridge.thread = new System.Threading.Thread(new System.Threading.ThreadStart(() =>{
+                AppDomain.CurrentDomain.UnhandledException += this.lBridge.AppDomain_UnhandledException;
+                this.lReturnInstance.lIsReady = false;
+                System.Object lRet=null;
+                try{
+                    lRet= this.lMethod.Invoke(this.lInstance, this.lArguments);
+                    if(lRet!=null){
+                        this.lReturnInstance.lInstance=lRet;
+                        this.lReturnInstance.lType = lRet.GetType();
+                    }
+                }catch(Exception e){
+                    this.lReturnInstance.lErrorMessage = "Method <" + this.lMethodName + "> invocation failed ! \r\n" + (this.lBridge.lerror != null ? this.lBridge.lerror : e.InnerException.Message);
+                }
+                this.lBridge.timerhotkey.Stop();
+                this.lReturnInstance.lIsReady = true;
+            }));
+            this.lBridge.thread.Start();
+            this.lBridge.timerhotkey.Start();
             if (pSynchrone){
-                bool succed = this.thread.Join(this.lBridge.Timeout);
-                this.timerhotkey.Stop();
+                bool succed = this.lBridge.thread.Join(this.lBridge.Timeout);
+                this.lBridge.timerhotkey.Stop();
                 if (!succed) throw new ApplicationException("Timeout reached while invoking method <" + this.lMethodName + "> !   ");
                 if (this.lReturnInstance.lErrorMessage != null) throw new ApplicationException(this.lReturnInstance.lErrorMessage);
             }
             return this.lReturnInstance;      
-        }
-
-        private void InvokeProc(){
-            this.lReturnInstance.lIsReady = false;
-            System.Object lRet=null;
-            try{
-                lRet= this.lMethod.Invoke(this.lInstance, this.lArguments);
-                if(lRet!=null){
-                    this.lReturnInstance.lInstance=lRet;
-                    this.lReturnInstance.lType = lRet.GetType();
-                }
-            }catch(ApplicationException e){
-                this.lReturnInstance.lErrorMessage = "Method <" + this.lMethodName + "> invocation failed ! \r\n" + e.InnerException.Message;
-            }
-            this.timerhotkey.Stop();
-            this.lReturnInstance.lIsReady = true;
         }
 
     }
